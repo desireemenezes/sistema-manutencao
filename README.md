@@ -11,9 +11,12 @@ Permite a criação, execução e histórico de chamados de manutenção correti
 - [Sass](https://sass-lang.com/)
 - [React Query](https://react-query.tanstack.com/)
 - [Zustand](https://zustand-demo.pmnd.rs/) / Context API
+- [React Router DOM](https://reactrouter.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/)
 - [Jest](https://jestjs.io/) (testes unitários)
 - Arquitetura: Clean Architecture + Modularização por Features
-- Mock API: `json-server`
+- Mock API: [`json-server`](https://github.com/typicode/json-server) hospedado em [rest-json-server.onrender.com](https://rest-json-server.onrender.com/)
 
 ---
 
