@@ -1,12 +1,20 @@
 import type { JestConfigWithTsJest } from "ts-jest";
-import { compilerOptions } from "./tsconfig.app.json";
+import { readFileSync } from "fs";
+const tsconfig = JSON.parse(readFileSync("./tsconfig.app.json", "utf-8"));
+const compilerOptions = tsconfig.compilerOptions;
+
 import { pathsToModuleNameMapper } from "ts-jest";
 
 const config: JestConfigWithTsJest = {
   preset: "ts-jest",
-  testEnvironment: "jsdom",
+  testEnvironment: "jest-environment-jsdom",
+  globals: {
+    "ts-jest": {
+      tsconfig: "./tsconfig.app.json", // aponta explicitamente para seu tsconfig
+      isolatedModules: true,
+    },
+  },
   moduleNameMapper: {
-    // Aliases do tsconfig para funcionar nos testes
     ...pathsToModuleNameMapper(compilerOptions.paths || {}, {
       prefix: "<rootDir>/src/",
     }),
