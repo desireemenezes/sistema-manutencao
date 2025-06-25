@@ -1,69 +1,71 @@
-# React + TypeScript + Vite
+# 🛠️ Sistema de Manutenção
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema web para gerenciamento de manutenções em bases de pesquisa na Antártica. 
+Permite a criação, execução e histórico de chamados de manutenção corretiva e preventiva, com acesso controlado por perfis de usuário.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [React 18](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Sass](https://sass-lang.com/)
+- [React Query](https://react-query.tanstack.com/)
+- [Zustand](https://zustand-demo.pmnd.rs/) / Context API
+- [Jest](https://jestjs.io/) (testes unitários)
+- Arquitetura: Clean Architecture + Modularização por Features
+- Mock API: `json-server`
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Instalação
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Clone o projeto
+git clone https://github.com/desireemenezes/sistema-manutencao.git
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+# Acesse a pasta
+cd sistema-manutencao
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Instale as dependências
+npm install
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+| Comando           | Descrição                                |
+| ----------------- | ---------------------------------------- |
+| `npm run dev`     | Inicia o projeto em modo desenvolvimento |
+| `npm run build`   | Gera build de produção otimizado         |
+| `npm run preview` | Pré-visualiza o build                    |
+| `npm run test`    | Executa testes unitários com Jest        |
+| `npm run lint`    | Executa linting com ESLint               |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🧱 Estrutura de Pastas (resumo)
+src/
+├── assets/            # Imagens e arquivos estáticos
+├── features/          # Funcionalidades isoladas (modularizadas)
+│   └── maintenance/   # Ex: manutenção (chamados, dashboard, etc)
+├── shared/            # Componentes reutilizáveis
+├── services/          # API clients (React Query)
+├── hooks/             # Hooks customizados
+├── store/             # Zustand ou Context
+├── styles/            # Estilos globais e variáveis
+├── App.tsx
+└── main.tsx
+````
+
+## 🧠 Decisões técnicas
+Clean Architecture com features/ isoladas
+
+State Management com Zustand + Context API (quando necessário)
+
+React Query para gerenciamento de dados assíncronos
+
+Sass com estrutura escalável e utilitários globais
+
+Testes unitários com Jest
+
+Modularização por responsabilidade
+
+---
+
+🧑‍💻 Autor
+Desenvolvido por Desirée Menezes
