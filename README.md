@@ -18,6 +18,9 @@ Permite a criação, execução e histórico de chamados de manutenção correti
 - Arquitetura: Clean Architecture + Modularização por Features
 - Mock API: [`json-server`](https://github.com/typicode/json-server) hospedado em [rest-json-server.onrender.com](https://rest-json-server.onrender.com/)
 
+ ![image](https://github.com/user-attachments/assets/392e729d-744b-4e1d-acbe-b5e1c6da78c8)
+
+
 ---
 
 ## 📦 Instalação
