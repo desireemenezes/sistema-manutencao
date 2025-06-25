@@ -1,11 +1,15 @@
-import "./styles/global.scss";
+import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { AppRoutes } from "@/routes/AppRoutes";
 
-function App() {
+const queryClient = new QueryClient();
+
+export function App() {
   return (
-    <>
-      <div>Hello world!</div>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
-
-export default App;
