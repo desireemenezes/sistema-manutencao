@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { LoginForm } from "../components/LoginForm";
+import styles from "../styles/login.module.scss";
+import { ArcticOpsShieldIcon } from "@/components/icons/SnowflakeToolIcon";
 
 export function LoginPage() {
   const { user } = useAuth();
@@ -18,9 +20,14 @@ export function LoginPage() {
   }, [user, navigate]);
 
   return (
-    <main>
-      <h1>Bem-vindo ao Sistema de Manutenção</h1>
-      <LoginForm />
+    <main className={styles.pageWrapper} role="main">
+      <section className={styles.loginSection} aria-label="Formulário de Login">
+        <div className={styles.divFlex}>
+          <ArcticOpsShieldIcon size={32} color="#0052cc" />
+          <h3>Bem-vindo ao ArcticOps</h3>
+        </div>
+        <LoginForm />
+      </section>
     </main>
   );
 }

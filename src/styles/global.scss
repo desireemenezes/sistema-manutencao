@@ -1,3 +1,7 @@
+@use "./utils/variables" as vars;
+@use "./utils/light" as light;
+@use "./utils/dark" as dark;
+
 /* Reset CSS básico */
 *,
 *::before,
@@ -7,17 +11,19 @@
   box-sizing: border-box;
 }
 
-/* Usar Roboto e fallback */
 body {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-optical-sizing: auto;
-  background-color: #f2f2f2;
-  color: #222;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  // Tema claro padrão
+  background-color: light.$light-background-color;
+  color: light.$light-text-color;
+  font-family: vars.$font-main;
   min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+// Tema escuro ativado apenas se data-theme="dark"
+body[data-theme="dark"] {
+  background-color: dark.$dark-background-color;
+  color: dark.$dark-text-color;
 }
 
 /* Links padrão */
@@ -58,8 +64,6 @@ textarea {
 }
 
 /* Utilitários para fonte Roboto com variações */
-
-/* Peso normal */
 .roboto {
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
@@ -68,17 +72,14 @@ textarea {
   font-variation-settings: "wdth" 100;
 }
 
-/* Peso leve */
 .roboto-light {
   font-weight: 300;
 }
 
-/* Peso negrito */
 .roboto-bold {
   font-weight: 700;
 }
 
-/* Exemplo de variação de largura */
 .roboto-condensed {
   font-variation-settings: "wdth" 75;
 }
