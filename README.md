@@ -58,6 +58,19 @@ src/
 └── main.tsx
 ````
 
+## 📋 Fluxo de Desenvolvimento e Entrega
+Este projeto segue um fluxo organizado para garantir qualidade, rastreabilidade e entregas contínuas:
+
+O desenvolvimento está dividido em Issues temáticas, cada uma focada em uma funcionalidade ou etapa do sistema.
+
+Para cada Issue, deve ser criada uma Branch específica e submetido um Pull Request (PR) individual.
+
+Após a aprovação do PR, a versão correspondente é automaticamente publicada via deploy no Netlify.
+
+Este fluxo permite acompanhamento incremental do progresso e testes em ambiente real.
+
+A branch principal (main ou master) sempre reflete a versão estável e publicada do sistema.
+
 ## 🧠 Decisões técnicas
 Clean Architecture com features/ isoladas
 
@@ -73,5 +86,5 @@ Modularização por responsabilidade
 
 ---
 
-🧑‍💻 Autor
+🧑‍💻
 Desenvolvido por Desirée Menezes
