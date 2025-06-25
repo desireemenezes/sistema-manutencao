@@ -1,16 +1,24 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import "./styles/global.scss";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { App } from "./App";
+import "@/styles/global.scss";
 
-const rootElement = document.getElementById("root");
-
-if (!rootElement) {
-  throw new Error("Root element not found");
+// Aplica o tema salvo no HTML
+const savedTheme = localStorage.getItem("theme-storage");
+if (savedTheme) {
+  try {
+    const parsed = JSON.parse(savedTheme);
+    const theme = parsed.state.theme;
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+} else {
+  document.documentElement.setAttribute("data-theme", "light");
 }
 
-createRoot(rootElement).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>
+  </React.StrictMode>
 );

@@ -1,0 +1,124 @@
+@use "../../../styles/utils/variables" as vars;
+@use "../../../styles/utils/light" as light;
+@use "../../../styles/utils/dark" as dark;
+
+.pageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+  padding: 0;
+  background-color: light.$light-background-color;
+
+  /** mobile ***/
+  @media (max-width: 900px) {
+    /* Para telas pequenas, deixa o conteúdo um pouco mais para cima */
+    padding-top: 2rem;
+    height: auto; /* Permite a altura ser menor que 100vh */
+  }
+}
+
+.loginSection {
+  width: 400px;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: light.$light-card-bg;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  color: light.$light-text-color;
+  font-size: 1rem;
+}
+
+.icon {
+  color: vars.$primary-color;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.divFlex {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: light.$light-text-color;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 10px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  display: block;
+  color: light.$light-text-color;
+}
+
+input {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid light.$light-border-color;
+  color: light.$light-text-color;
+  background-color: light.$light-background-color;
+}
+
+button {
+  padding: 0.75rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 6px;
+  background-color: vars.$primary-color;
+  color: vars.$white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: vars.$primary-dark;
+  }
+}
+
+.error {
+  color: vars.$error-color;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+[data-theme="dark"] {
+  .pageWrapper {
+    background-color: dark.$dark-background-color;
+  }
+
+  .loginSection {
+    background-color: dark.$dark-card-bg;
+    box-shadow: none;
+  }
+
+  h1,
+  label,
+  input {
+    color: dark.$dark-text-color;
+  }
+
+  input {
+    border: 1px solid dark.$dark-border-color;
+    background-color: dark.$dark-card-bg;
+  }
+}
