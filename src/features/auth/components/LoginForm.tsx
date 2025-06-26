@@ -1,4 +1,4 @@
-import Spinner from "@/components/Spinner/Spinner";
+import { Spinner } from "@/components/layout/Spinner/Spinner";
 import { useLogin } from "../hooks/useLogin";
 import styles from "../styles/login.module.scss";
 
@@ -46,7 +46,8 @@ export function LoginForm() {
       <button type="submit" disabled={loading} className={styles.button}>
         {loading ? (
           <>
-            <Spinner size={20} ariaLabel="Carregando..." /> Carregando...
+            <Spinner size={18} color="#fff" />
+            <span style={{ marginLeft: "8px" }}>Carregando...</span>
           </>
         ) : (
           "Entrar"

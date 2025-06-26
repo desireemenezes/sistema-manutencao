@@ -1,22 +1,19 @@
-// src/store/themeStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface ThemeState {
-  theme: "darkTheme" | "lightTheme";
+  theme: "light" | "dark";
   toggleTheme: () => void;
 }
 
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({
-      theme: "lightTheme",
+      theme: "light",
       toggleTheme: () => {
-        const newTheme =
-          get().theme === "lightTheme" ? "darkTheme" : "lightTheme";
+        const newTheme = get().theme === "light" ? "dark" : "light";
         set({ theme: newTheme });
-        document.documentElement.classList.remove("lightTheme", "darkTheme");
-        document.documentElement.classList.add(newTheme);
+        document.documentElement.setAttribute("data-theme", newTheme);
       },
     }),
     {
