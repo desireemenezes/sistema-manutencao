@@ -1,6 +1,4 @@
 @use "../../../styles/utils/variables" as vars;
-@use "../../../styles/utils/light" as light;
-@use "../../../styles/utils/dark" as dark;
 
 .pageWrapper {
   display: flex;
@@ -9,13 +7,11 @@
 
   height: 100vh;
   padding: 0;
-  background-color: light.$light-background-color;
+  background-color: var(--background-color);
 
-  /** mobile ***/
   @media (max-width: 900px) {
-    /* Para telas pequenas, deixa o conteúdo um pouco mais para cima */
     padding-top: 2rem;
-    height: auto; /* Permite a altura ser menor que 100vh */
+    height: auto;
   }
 }
 
@@ -24,18 +20,19 @@
   max-width: 400px;
   padding: 2rem;
   border-radius: 12px;
-  background-color: light.$light-card-bg;
+  background-color: var(--card-bg);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .title {
   text-align: center;
-  color: light.$light-text-color;
-  font-size: 1rem;
+  color: var(--text-color);
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .icon {
-  color: vars.$primary-color;
+  color: var(--primary-color, #0052cc); // fallback só por segurança
   width: 22px;
   height: 22px;
   flex-shrink: 0;
@@ -44,81 +41,52 @@
 .divFlex {
   display: flex;
   align-items: center;
-  text-align: center;
   justify-content: space-between;
   flex-direction: column-reverse;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
   text-align: center;
-  color: light.$light-text-color;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding-top: 10px;
 }
 
-label {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  display: block;
-  color: light.$light-text-color;
-}
-
-input {
+.form input {
   padding: 0.75rem;
   font-size: 1rem;
   border-radius: 6px;
-  border: 1px solid light.$light-border-color;
-  color: light.$light-text-color;
-  background-color: light.$light-background-color;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  background-color: var(--card-bg);
 }
 
-button {
+.form button {
   padding: 0.75rem;
   font-weight: bold;
   font-size: 1rem;
   border-radius: 6px;
-  background-color: vars.$primary-color;
-  color: vars.$white;
+  background-color: var(--primary-color, #0052cc);
+  color: var(--white, #fff);
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
 
-  &:hover {
-    background-color: vars.$primary-dark;
-  }
+.form button:hover {
+  background-color: var(--primary-dark, #003999);
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .error {
-  color: vars.$error-color;
+  color: var(--error-color, #f44336);
   text-align: center;
   font-size: 0.9rem;
-}
-
-[data-theme="dark"] {
-  .pageWrapper {
-    background-color: dark.$dark-background-color;
-  }
-
-  .loginSection {
-    background-color: dark.$dark-card-bg;
-    box-shadow: none;
-  }
-
-  h1,
-  label,
-  input {
-    color: dark.$dark-text-color;
-  }
-
-  input {
-    border: 1px solid dark.$dark-border-color;
-    background-color: dark.$dark-card-bg;
-  }
 }

@@ -1,23 +1,47 @@
-// Cores principais
-$primary-color: #0052cc;
-$primary-light: #4c84ff;
-$primary-dark: #003999;
+@use "./colors" as *;
+@use "./light" as light;
+@use "./dark" as dark;
 
-$secondary-color: #ff4081;
-$secondary-dark: #c60055;
-
-// Feedback
-$success-color: #4caf50;
-$error-color: #f44336;
-$warning-color: #ff9800;
-
-// Neutros
-$white: #ffffff;
-$black: #000000;
-$gray-100: #f5f5f5;
-$gray-200: #eeeeee;
-$gray-300: #e0e0e0;
-$gray-800: #424242;
-
-// Tipografia
+// ========== FONTES ==========
 $font-main: "Roboto", sans-serif;
+
+$font-title-size: 1.75rem;
+$font-title-weight: 700;
+
+$font-label-size: 0.875rem;
+$font-label-weight: 500;
+
+$font-header-size: 1.25rem;
+$font-header-weight: 600;
+
+$font-body-size: 1rem;
+$font-body-weight: 400;
+
+// ========== EXPORTAÇÃO DE VARIÁVEIS GLOBAIS ==========
+$primary-color: $primary-color;
+$primary-dark: $primary-dark;
+$white: $white;
+$error-color: $error-color;
+
+// ========== DEFINIÇÃO DE VARIÁVEIS CSS ==========
+.theme-light {
+  --title-color: #{light.$light-title-color};
+  --label-color: #{light.$light-label-color};
+  --header-color: #{light.$light-header-color};
+  --body-color: #{light.$light-body-color};
+  --background-color: #{light.$light-background-color};
+  --text-color: #{light.$light-text-color};
+  --card-bg: #{light.$light-card-bg};
+  --border-color: #{light.$light-border-color};
+}
+
+.theme-dark {
+  --title-color: #{dark.$dark-title-color};
+  --label-color: #{dark.$dark-label-color};
+  --header-color: #{dark.$dark-header-color};
+  --body-color: #{dark.$dark-body-color};
+  --background-color: #{dark.$dark-background-color};
+  --text-color: #{dark.$dark-text-color};
+  --card-bg: #{dark.$dark-card-bg};
+  --border-color: #{dark.$dark-border-color};
+}

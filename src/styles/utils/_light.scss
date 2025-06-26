@@ -1,6 +1,11 @@
-@use "variables" as *;
+@use "./colors" as *;
 
 $light-background-color: $gray-100;
 $light-text-color: $gray-800;
 $light-card-bg: $white;
 $light-border-color: $gray-300;
+
+$light-title-color: $black;
+$light-label-color: $gray-800;
+$light-header-color: $primary-dark;
+$light-body-color: $gray-800;

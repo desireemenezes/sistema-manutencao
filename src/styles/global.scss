@@ -1,8 +1,6 @@
 @use "./utils/variables" as vars;
-@use "./utils/light" as light;
-@use "./utils/dark" as dark;
 
-/* Reset CSS básico */
+/* Reset básico */
 *,
 *::before,
 *::after {
@@ -12,18 +10,23 @@
 }
 
 body {
-  // Tema claro padrão
-  background-color: light.$light-background-color;
-  color: light.$light-text-color;
   font-family: vars.$font-main;
   min-height: 100vh;
   transition: all 0.3s ease;
 }
 
-// Tema escuro ativado apenas se data-theme="dark"
+// Aplica variáveis do tema claro
+body {
+  @extend .theme-light;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+// Tema escuro por data-theme (alternável no React)
 body[data-theme="dark"] {
-  background-color: dark.$dark-background-color;
-  color: dark.$dark-text-color;
+  @extend .theme-dark;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* Links padrão */
@@ -61,25 +64,4 @@ select,
 textarea {
   font-family: inherit;
   font-size: inherit;
-}
-
-/* Utilitários para fonte Roboto com variações */
-.roboto {
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
-}
-
-.roboto-light {
-  font-weight: 300;
-}
-
-.roboto-bold {
-  font-weight: 700;
-}
-
-.roboto-condensed {
-  font-variation-settings: "wdth" 75;
 }

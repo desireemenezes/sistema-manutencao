@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "@/features/auth/pages/LoginPage";
-import { Dashboard } from "@/features/dashboard/pages/Dashboard";
 import { PrivateRoute } from "./PrivateRoute";
+import { Dashboard } from "@/features/pages/Dashboard";
 
 export function AppRoutes() {
   return (
