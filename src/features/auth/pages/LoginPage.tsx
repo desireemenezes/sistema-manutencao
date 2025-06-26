@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { LoginForm } from "../components/LoginForm";
 import styles from "../styles/login.module.scss";
 import { ArcticOpsShieldIcon } from "@/components/icons/SnowflakeToolIcon";
+import { getRedirectPathByRole } from "../utils/redirectByRole";
 
 export function LoginPage() {
   const { user } = useAuth();
@@ -11,11 +12,8 @@ export function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      if (user.role === "manager") navigate("/dashboard", { replace: true });
-      else if (user.role === "technician")
-        navigate("/my-calls", { replace: true });
-      else if (user.role === "researcher")
-        navigate("/requests", { replace: true });
+      const redirectPath = getRedirectPathByRole(user.role);
+      navigate(redirectPath, { replace: true });
     }
   }, [user, navigate]);
 
