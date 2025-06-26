@@ -5,8 +5,8 @@ import styles from "./styles/layout.module.scss";
 import { ThemeToggle } from "../Toggle/ThemeToggle";
 
 export default function Header() {
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const { isOpen, toggleSidebar } = useSidebar();
 
   const handleLogout = () => {

@@ -1,22 +1,27 @@
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { Outlet } from "react-router-dom";
+import styles from "./styles/layout.module.scss";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export function Layout({ children }: LayoutProps) {
+export function Layout() {
   return (
-    <div className="layout-wrapper">
+    <div className={styles.wrapper}>
       <Header />
-      <div className="layout-body">
+      <div className={styles.body}>
         <Sidebar />
         <main
           tabIndex={-1}
           aria-label="Conteúdo principal"
-          className="main-content"
+          className={styles.main_content}
         >
-          {children}
+          <Outlet />
+
+          <footer className={styles.footer}>
+            <small>
+              Desenvolvido por <strong>Desirée Menezes</strong> &copy;{" "}
+              {new Date().getFullYear()}
+            </small>
+          </footer>
         </main>
       </div>
     </div>

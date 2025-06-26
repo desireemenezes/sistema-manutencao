@@ -1,39 +1,68 @@
-// src/routes/AppRoutes.tsx
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { LoginPage } from "@/features/auth/pages/LoginPage";
-import { Dashboard } from "@/features/pages/Dashboard";
 import { Layout } from "@/components/Layout/Layout";
+import { Dashboard } from "@/features/pages/Dashboard/Dashboard";
+import { Called } from "@/features/pages/Called/Called";
+import { Users } from "@/features/pages/Users/Users";
+import { Sectors } from "@/features/pages/Sectors/Sectors";
+import { Equipment } from "@/features/pages/Equipment/Equipment";
+import { History } from "@/features/pages/History/History";
+import { CalledAssigned } from "@/features/pages/CalledAssigned/CalledAssigned";
+import { MyCalled } from "@/features/pages/MyCalled/MyCalled";
 
 export function AppRoutes() {
-  const { isAuthenticated, isManager } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const role = user?.role ?? "";
+
+  if (!isAuthenticated) {
+    return (
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    );
+  }
 
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
+      <Route element={<Layout />}>
+        {role === "manager" && (
+          <>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/chamados" element={<Called />} />
+            <Route path="/usuarios" element={<Users />} />
+            <Route path="/setores" element={<Sectors />} />
+            <Route path="/equipamentos" element={<Equipment />} />
+            <Route path="/historico" element={<History />} />
+          </>
+        )}
 
-      {isAuthenticated && (
-        <Route element={<Layout children={undefined} />}>
-          {isManager && (
-            <>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/chamados" element={<p>Chamados</p>} />
-              <Route path="/usuarios" element={<p>Usuários</p>} />
-              <Route path="/setores" element={<p>Setores</p>} />
-              <Route path="/equipamentos" element={<p>Equipamentos</p>} />
-              <Route path="/historico" element={<p>Histórico</p>} />
-            </>
-          )}
+        {role === "technician" && (
+          <Route path="/chamados-atribuidos" element={<CalledAssigned />} />
+        )}
 
-          {/* Redirecionamento para rota padrão */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Route>
-      )}
+        {role === "researcher" && (
+          <Route path="/meus-chamados" element={<MyCalled />} />
+        )}
 
-      {/* Redireciona usuários não autenticados para o login */}
-      {!isAuthenticated && (
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      )}
+        {/* Redirecionamento para rota inicial correta */}
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to={
+                role === "manager"
+                  ? "/dashboard"
+                  : role === "technician"
+                  ? "/chamados-atribuidos"
+                  : "/meus-chamados"
+              }
+              replace
+            />
+          }
+        />
+      </Route>
     </Routes>
   );
 }
