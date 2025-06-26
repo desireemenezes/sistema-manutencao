@@ -1,0 +1,25 @@
+export interface PartUsed {
+  name: string;
+  quantity: number;
+}
+
+export type MaintenanceType = "corrective" | "preventive";
+
+export type MaintenanceStatus = "open" | "in_progress" | "completed";
+
+export type RelatedTo = "equipment" | "location";
+
+export interface MaintenanceRequest {
+  id: number;
+  type: MaintenanceType;
+  description: string;
+  priority: "low" | "medium" | "high";
+  status: MaintenanceStatus;
+  relatedTo: RelatedTo;
+  equipmentId?: number;
+  sectorId: number;
+  assignedTo?: number; // agente (userId)
+  completionDate?: string | null;
+  completionNotes?: string | null;
+  partsUsed: PartUsed[];
+}
