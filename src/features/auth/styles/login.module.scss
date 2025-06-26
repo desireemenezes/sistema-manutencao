@@ -1,10 +1,7 @@
-@use "../../../styles/utils/variables" as vars;
-
 .pageWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-
   height: 100vh;
   padding: 0;
   background-color: var(--background-color);
@@ -26,13 +23,13 @@
 
 .title {
   text-align: center;
-  color: var(--text-color);
+  color: var(--color);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
 .icon {
-  color: var(--primary-color, #0052cc); // fallback só por segurança
+  color: var(--primary-color);
   width: 22px;
   height: 22px;
   flex-shrink: 0;
@@ -58,7 +55,7 @@
   font-size: 1rem;
   border-radius: 6px;
   border: 1px solid var(--border-color);
-  color: var(--text-color);
+  color: var(--color);
   background-color: var(--card-bg);
 }
 
@@ -67,15 +64,15 @@
   font-weight: bold;
   font-size: 1rem;
   border-radius: 6px;
-  background-color: var(--primary-color, #0052cc);
-  color: var(--white, #fff);
+  background-color: var(--primary-color);
+  color: var(--white);
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .form button:hover {
-  background-color: var(--primary-dark, #003999);
+  background-color: var(--primary-dark);
 }
 
 button {
@@ -86,7 +83,7 @@ button {
 }
 
 .error {
-  color: var(--error-color, #f44336);
+  color: var(--error-color);
   text-align: center;
   font-size: 0.9rem;
 }
