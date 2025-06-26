@@ -12,11 +12,11 @@ export function ThemeToggle() {
         background: "none",
         border: "none",
         cursor: "pointer",
-        fontSize: "1rem",
+        fontSize: "1.5rem",
         color: "inherit",
       }}
     >
-      {theme === "lightTheme" ? <FaMoon /> : <FaSun />}
+      {theme === "light" ? <FaMoon /> : <FaSun />}
     </button>
   );
 }
