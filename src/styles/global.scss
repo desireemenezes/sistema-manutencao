@@ -1,4 +1,4 @@
-@use "./utils/variables" as vars;
+@use "./utils/themes" as themes;
 
 /* Reset básico */
 *,
@@ -10,26 +10,14 @@
 }
 
 body {
-  font-family: vars.$font-main;
+  font-family: "Roboto", sans-serif;
   min-height: 100vh;
-  transition: all 0.3s ease;
-}
-
-// Aplica variáveis do tema claro
-body {
-  @extend .theme-light;
+  transition: background-color 0.3s ease, color 0.3s ease;
   background-color: var(--background-color);
-  color: var(--text-color);
+  color: var(--color);
 }
 
-// Tema escuro por data-theme (alternável no React)
-body[data-theme="dark"] {
-  @extend .theme-dark;
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-/* Links padrão */
+/* Links */
 a {
   color: inherit;
   text-decoration: none;
@@ -64,4 +52,17 @@ select,
 textarea {
   font-family: inherit;
   font-size: inherit;
+}
+
+/* Classe para screen-reader only */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }

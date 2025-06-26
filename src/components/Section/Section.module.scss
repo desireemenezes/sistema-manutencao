@@ -1,0 +1,19 @@
+.section {
+  padding: 1.5rem;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color);
+}
+
+.description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
