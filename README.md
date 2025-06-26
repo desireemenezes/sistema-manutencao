@@ -1,6 +1,6 @@
 # 🛠️ Sistema de Manutenção (ArticOps)
 
-Sistema web para gerenciamento de manutenções em bases de pesquisa na Antártica. 
+Sistema web para gerenciamento de manutenções em bases de pesquisa na Antártica.
 Permite a criação, execução e histórico de chamados de manutenção corretiva e preventiva, com acesso controlado por perfis de usuário.
 
 ## 🚀 Tecnologias
@@ -18,8 +18,7 @@ Permite a criação, execução e histórico de chamados de manutenção correti
 - Arquitetura: Clean Architecture + Modularização por Features
 - Mock API: [`json-server`](https://github.com/typicode/json-server) hospedado em [rest-json-server.onrender.com](https://rest-json-server.onrender.com/)
 
- ![image](https://github.com/user-attachments/assets/392e729d-744b-4e1d-acbe-b5e1c6da78c8)
-
+![image](https://github.com/user-attachments/assets/392e729d-744b-4e1d-acbe-b5e1c6da78c8)
 
 ---
 
@@ -47,18 +46,21 @@ npm install
 🧱 Estrutura de Pastas (resumo)
 src/
 ├── assets/            # Imagens e arquivos estáticos
+├── components/        # Componentes reutilizáveis e hooks customizados
 ├── features/          # Funcionalidades isoladas (modularizadas)
-│   └── maintenance/   # Ex: manutenção (chamados, dashboard, etc)
-├── shared/            # Componentes reutilizáveis
-├── services/          # API clients (React Query)
-├── hooks/             # Hooks customizados
-├── store/             # Zustand ou Context
-├── styles/            # Estilos globais e variáveis
-├── App.tsx
-└── main.tsx
-````
+│   ├── auth/          # Exemplo: autenticação e login
+│   ├── dashboard/     # Exemplo: dashboard do sistema
+│   └── ...            # Outras features
+├── lib/               # Clientes API (React Query)
+├── routes/            # Definições de rotas
+├── store/             # Estado global com Zustand ou Context API
+├── styles/            # Estilos globais, variáveis e temas
+├── App.tsx            # Componente principal da aplicação
+└── main.tsx           # Ponto de entrada do React
+```
 
 ## 📋 Fluxo de Desenvolvimento e Entrega
+
 Este projeto segue um fluxo organizado para garantir qualidade, rastreabilidade e entregas contínuas:
 
 O desenvolvimento está dividido em Issues temáticas, cada uma focada em uma funcionalidade ou etapa do sistema.
@@ -72,6 +74,7 @@ Este fluxo permite acompanhamento incremental do progresso e testes em ambiente 
 A branch principal (main ou master) sempre reflete a versão estável e publicada do sistema.
 
 ## 🧠 Decisões técnicas
+
 Clean Architecture com features/ isoladas
 
 State Management com Zustand + Context API (quando necessário)
