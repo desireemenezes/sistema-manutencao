@@ -15,7 +15,7 @@ const fakeUser: User = {
 // Mock do serviço de login
 jest.mock("@/lib/env", () => ({
   env: {
-    API_URL: "https://rest-json-server.onrender.com/",
+    API_URL: "https://vercel-api-desireemenezes-projects.vercel.app/",
   },
 }));
 
