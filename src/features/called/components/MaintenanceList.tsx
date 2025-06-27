@@ -10,10 +10,16 @@ import {
   useMaintenanceList,
   useUpdateMaintenance,
 } from "../api/maintenanceApi";
+import { useAuthStore } from "@/store/authStore";
 
 export const MaintenanceList = () => {
+  const user = useAuthStore((state) => state.user);
   const { data: technicians = [] } = useTechnicians();
-  const { typeFilter, statusFilter, assignedToFilter } = useMaintenanceStore();
+  const {
+    typeFilter,
+    statusFilter,
+    assignedToFilter: assignedToFilterFromStore,
+  } = useMaintenanceStore();
 
   const { data: maintenanceRequests, isLoading } = useMaintenanceList();
   const updateMaintenance = useUpdateMaintenance();
@@ -21,11 +27,14 @@ export const MaintenanceList = () => {
   const [selectedRequest, setSelectedRequest] = useState<any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredRequests = maintenanceRequests?.filter((item: any) => {
+  const assignedToFilter =
+    user?.role === "technician" ? user.id : assignedToFilterFromStore;
+
+  const filteredRequests = maintenanceRequests?.filter((item) => {
     return (
       (!typeFilter || item.type === typeFilter) &&
       (!statusFilter || item.status === statusFilter) &&
-      (!assignedToFilter || item.assignedTo === assignedToFilter)
+      (assignedToFilter === null || item.assignedTo === assignedToFilter)
     );
   });
 
@@ -52,8 +61,10 @@ export const MaintenanceList = () => {
   };
 
   const getTechnicianName = (id: number | null | undefined) => {
+    console.log("Buscando técnico para assignedTo:", id);
     if (!id) return "Não atribuído";
     const tech = technicians.find((t) => t.id === id);
+    if (!tech) console.log("Técnico não encontrado para id:", id);
     return tech ? tech.fullName : "Desconhecido";
   };
 
