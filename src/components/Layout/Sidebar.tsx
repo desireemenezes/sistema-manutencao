@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useSidebar } from "@/hooks/useSidebar";
 import { useClickOutside } from "@/utils/useClickOutside";
 import styles from "./styles/layout.module.scss";
 import { SIDEBAR_LINKS_BY_ROLE } from "@/constants/sidebarLinks";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Sidebar() {
   const { isOpen, closeSidebar } = useSidebar();

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useAuth } from "./useAuth";
 import { loginRequest } from "../api/loginRequest";
+import { useAuth } from "@/hooks/useAuth";
 
 export function useLogin() {
   const { login } = useAuth();
