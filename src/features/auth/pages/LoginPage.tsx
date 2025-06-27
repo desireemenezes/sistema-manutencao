@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 import { LoginForm } from "../components/LoginForm";
 import styles from "../styles/login.module.scss";
 import { ArcticOpsShieldIcon } from "@/components/icons/SnowflakeToolIcon";
 import { getRedirectPathByRole } from "../utils/redirectByRole";
+import { useAuth } from "@/hooks/useAuth";
 
 export function LoginPage() {
   const { user } = useAuth();

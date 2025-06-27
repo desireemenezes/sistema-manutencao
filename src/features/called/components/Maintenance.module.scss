@@ -1,0 +1,124 @@
+.filtersContainer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  align-items: center;
+
+  select {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--button-text, #fff);
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: var(--primary-dark);
+    }
+  }
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm, 0 0 8px rgba(0, 0, 0, 0.05));
+  cursor: pointer;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  li {
+    background-color: var(--surface-color);
+    border-left: 4px solid transparent; /* default transparente */
+    padding: 1rem;
+    border-radius: 0.375rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    box-shadow: var(--shadow-sm, 0 0 8px rgba(0, 0, 0, 0.05));
+
+    &:hover {
+      background-color: var(--hover-bg, rgba(0, 0, 0, 0.03));
+    }
+
+    &.borderOpen {
+      border-left-color: var(--danger-color, #e53935);
+    }
+
+    &.borderInProgress {
+      border-left-color: var(--warning-color, #f9a825);
+    }
+
+    &.borderCompleted {
+      border-left-color: var(--success-color, #43a047);
+    }
+
+    strong {
+      font-size: 1rem;
+      color: var(--color);
+    }
+
+    em {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: normal;
+    }
+
+    p {
+      margin: 0;
+      color: var(--text-color);
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color);
+}
+
+.badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.open {
+  background-color: var(--danger-color, #e53935);
+}
+
+.inProgress {
+  background-color: var(--warning-color, #f9a825);
+}
+
+.completed {
+  background-color: var(--success-color, #43a047);
+}

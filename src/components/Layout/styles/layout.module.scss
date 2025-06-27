@@ -38,6 +38,11 @@
   .user-info {
     display: flex;
     align-items: center;
+    font-size: 15px;
+
+    @media (max-width: 767px) {
+      font-size: 11px;
+    }
 
     p {
       margin-right: 10px;
@@ -137,7 +142,7 @@
 @media (max-width: 767px) {
   .main_content {
     margin-left: 0; // remove margem lateral no mobile
-    width: 97vh;
+    width: 100%;
   }
 }
 

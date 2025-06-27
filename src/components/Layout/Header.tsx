@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useSidebar } from "@/hooks/useSidebar";
-import { useAuth } from "@/features/auth/hooks/useAuth";
 import styles from "./styles/layout.module.scss";
 import { ThemeToggle } from "../Toggle/ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
   const navigate = useNavigate();

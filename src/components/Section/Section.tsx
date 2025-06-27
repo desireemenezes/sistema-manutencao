@@ -15,9 +15,9 @@ export function Section({
 }: SectionProps) {
   return (
     <section className={styles.section} aria-labelledby={id}>
-      <h2 id={id} className={styles.title}>
+      <h1 id={id} className={styles.title}>
         {title}
-      </h2>
+      </h1>
       {description && <p className={styles.description}>{description}</p>}
       {children}
     </section>
