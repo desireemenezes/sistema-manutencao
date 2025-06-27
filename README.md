@@ -64,12 +64,14 @@ src/
 
 ```
 
-🔐 Variáveis de Ambiente
+## 🔐 Variáveis de Ambiente
 Este projeto utiliza variáveis de ambiente para configuração da API.
 Crie um arquivo .env na raiz do projeto:
 ```
+
 cp .env.example .env
 VITE_API_URL=https://rest-json-server.onrender.com/
+
 ```
 
 ## 📋 Fluxo de Desenvolvimento e Entrega
