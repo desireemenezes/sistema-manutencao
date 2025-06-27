@@ -1,22 +1,33 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { LoginForm } from "../LoginForm";
-import * as loginService from "../../services/loginRequest";
-import { useAuthStore } from "../../store/authStore";
+import * as loginService from "../../api/loginRequest";
+import { useAuthStore } from "@/store/authStore";
+import type { User } from "../../types/Auth";
+
+const fakeUser: User = {
+  id: 1,
+  fullName: "Alice Researcher",
+  email: "alice@station.com",
+  role: "researcher",
+};
 
 // Mock do serviço de login
-jest.mock("../../services/loginRequest");
+jest.mock("@/lib/env", () => ({
+  env: {
+    API_URL: "https://rest-json-server.onrender.com/",
+  },
+}));
 
 describe("LoginForm", () => {
   beforeEach(() => {
-    // Limpar store antes de cada teste para garantir estado limpo
     useAuthStore.getState().logout();
   });
 
   it("exibe mensagem de erro ao inserir credenciais inválidas", async () => {
-    (loginService.loginRequest as jest.Mock).mockRejectedValueOnce(
-      new Error("Credenciais inválidas")
-    );
+    jest
+      .spyOn(loginService, "loginRequest")
+      .mockRejectedValueOnce(new Error("Credenciais inválidas"));
 
     render(<LoginForm />);
 
@@ -27,21 +38,23 @@ describe("LoginForm", () => {
     await userEvent.type(screen.getByPlaceholderText(/senha/i), "wrongpass");
     await userEvent.click(screen.getByRole("button", { name: /entrar/i }));
 
-    await waitFor(() => {
-      const element = screen.queryByText(/e-mail ou senha inválidos/i);
-      expect(element).not.toBeNull();
-    });
+    const errorMessage = await screen.findByText(
+      /credenciais inválidas\. verifique seu e-mail e senha\./i
+    );
+    expect(errorMessage).not.toBeNull();
   });
 
   it("faz login e atualiza o estado global com usuário correto", async () => {
-    const fakeUser = {
-      id: 1,
-      fullName: "Alice Researcher",
-      email: "alice@station.com",
-      password: "123456",
-      role: "researcher",
-    };
-    (loginService.loginRequest as jest.Mock).mockResolvedValueOnce(fakeUser);
+    // Mock para loginRequest aceitando email e password e retornando fakeUser
+    jest
+      .spyOn(loginService, "loginRequest")
+      .mockImplementation(async ({ email, password }) => {
+        if (email === fakeUser.email && password === "123456") {
+          return Promise.resolve(fakeUser);
+        } else {
+          return Promise.reject(new Error("Credenciais inválidas"));
+        }
+      });
 
     render(<LoginForm />);
 
@@ -49,15 +62,12 @@ describe("LoginForm", () => {
       screen.getByPlaceholderText(/e-mail/i),
       fakeUser.email
     );
-    await userEvent.type(
-      screen.getByPlaceholderText(/senha/i),
-      fakeUser.password
-    );
+    await userEvent.type(screen.getByPlaceholderText(/senha/i), "123456");
     await userEvent.click(screen.getByRole("button", { name: /entrar/i }));
 
+    // Espera o estado global ser atualizado
     await waitFor(() => {
-      const state = useAuthStore.getState();
-      expect(state.user).toEqual(fakeUser);
+      expect(useAuthStore.getState().user).toEqual(fakeUser);
     });
   });
 });
