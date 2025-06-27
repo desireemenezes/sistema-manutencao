@@ -3,6 +3,9 @@
 Sistema web para gerenciamento de manutenções em bases de pesquisa na Antártica.
 Permite a criação, execução e histórico de chamados de manutenção corretiva e preventiva, com acesso controlado por perfis de usuário.
 
+ **Acesse a versão em produção:**  
+🔗 [https://articops.netlify.app](https://articops.netlify.app)
+
 ## 🚀 Tecnologias
 
 - [React 18](https://reactjs.org/)
@@ -34,6 +37,7 @@ cd sistema-manutencao
 # Instale as dependências
 npm install
 
+
 | Comando           | Descrição                                |
 | ----------------- | ---------------------------------------- |
 | `npm run dev`     | Inicia o projeto em modo desenvolvimento |
@@ -57,6 +61,15 @@ src/
 ├── styles/            # Estilos globais, variáveis e temas
 ├── App.tsx            # Componente principal da aplicação
 └── main.tsx           # Ponto de entrada do React
+
+```
+
+🔐 Variáveis de Ambiente
+Este projeto utiliza variáveis de ambiente para configuração da API.
+Crie um arquivo .env na raiz do projeto:
+```
+cp .env.example .env
+VITE_API_URL=https://rest-json-server.onrender.com/
 ```
 
 ## 📋 Fluxo de Desenvolvimento e Entrega
