@@ -3,7 +3,7 @@
 Sistema web para gerenciamento de manutenções em bases de pesquisa na Antártica.
 Permite a criação, execução e histórico de chamados de manutenção corretiva e preventiva, com acesso controlado por perfis de usuário.
 
- **Acesse a versão em produção:**  
+**Acesse a versão em produção:**  
 🔗 [https://articops.netlify.app](https://articops.netlify.app)
 
 ## 🚀 Tecnologias
@@ -19,7 +19,7 @@ Permite a criação, execução e histórico de chamados de manutenção correti
 - [React Toastify](https://fkhadra.github.io/react-toastify/)
 - [Jest](https://jestjs.io/) (testes unitários)
 - Arquitetura: Clean Architecture + Modularização por Features
-- Mock API: [`json-server`](https://github.com/typicode/json-server) hospedado em [rest-json-server.onrender.com](https://rest-json-server.onrender.com/)
+- Mock API: [`json-server`] hospedado em [vercel-api-desireemenezes-projects.vercel.app/](https://vercel-api-desireemenezes-projects.vercel.app/)
 
 ![image](https://github.com/user-attachments/assets/392e729d-744b-4e1d-acbe-b5e1c6da78c8)
 
@@ -65,12 +65,14 @@ src/
 ```
 
 ## 🔐 Variáveis de Ambiente
+
 Este projeto utiliza variáveis de ambiente para configuração da API.
 Crie um arquivo .env na raiz do projeto:
+
 ```
 
 cp .env.example .env
-VITE_API_URL=https://rest-json-server.onrender.com/
+VITE_API_URL=vercel-api-desireemenezes-projects.vercel.app/
 
 ```
 
