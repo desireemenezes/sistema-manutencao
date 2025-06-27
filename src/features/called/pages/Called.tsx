@@ -1,5 +1,6 @@
 import { Section } from "@/components/Section/Section";
-import { MaintenanceListPage } from "@/features/maintenance/pages/MaintenanceListPage";
+import { MaintenanceFilters } from "../components/MaintenanceFilters";
+import { MaintenanceList } from "../components/MaintenanceList";
 
 export function Called() {
   return (
@@ -7,7 +8,10 @@ export function Called() {
       title="Chamados em Manutenção"
       description="Bem-vindo ao painel de controle."
     >
-      <MaintenanceListPage />
+      <div>
+        <MaintenanceFilters />
+        <MaintenanceList />
+      </div>
     </Section>
   );
 }

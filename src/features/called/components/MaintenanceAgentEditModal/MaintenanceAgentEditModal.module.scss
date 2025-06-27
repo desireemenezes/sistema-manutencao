@@ -1,0 +1,167 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--overlay-bg, rgba(0, 0, 0, 0.5));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modalContent {
+  background-color: var(--card-bg, #fff);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-md, 0 4px 16px rgba(0, 0, 0, 0.25));
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--color);
+  }
+
+  button.closeButton {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--danger-color, #e53935);
+    }
+  }
+}
+
+.addPartButton {
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--button-text, #fff);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--primary-dark);
+  }
+
+  &:disabled {
+    background-color: var(--disabled-bg, #ccc);
+    color: var(--disabled-text, #666);
+    cursor: not-allowed;
+  }
+}
+
+.modalBody {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    color: var(--color);
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    background-color: var(--input-bg, var(--card-bg));
+    color: var(--text-color);
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 0.5rem;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-light, rgba(33, 150, 243, 0.3));
+    }
+  }
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  button {
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
+
+    &.cancel {
+      background-color: var(--danger-color, #e53935);
+      color: var(--button-text, #fff);
+
+      &:hover {
+        background-color: var(--danger-dark, #b71c1c);
+      }
+    }
+
+    &.save {
+      background-color: var(--primary-color);
+      color: var(--button-text, #fff);
+
+      &:hover {
+        background-color: var(--primary-dark);
+      }
+    }
+
+    &:disabled {
+      background-color: var(--disabled-bg, #ccc);
+      cursor: not-allowed;
+      color: var(--disabled-text, #666);
+    }
+  }
+}
+
+.error {
+  color: var(--danger-color, #e53935);
+  font-size: 0.875rem;
+  display: block;
+}
+
+@media (max-width: 780px) {
+  .modalContent {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modalFooter button {
+    width: 100%;
+  }
+}

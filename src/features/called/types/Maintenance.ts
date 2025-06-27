@@ -23,3 +23,13 @@ export interface MaintenanceRequest {
   completionNotes?: string | null;
   partsUsed: PartUsed[];
 }
+
+export type CreateMaintenanceRequest = {
+  type: "" | MaintenanceType;
+  priority: "" | "low" | "medium" | "high";
+  description: string;
+  relatedTo: RelatedTo;
+  sectorId: number | "";
+  equipmentId?: number | "";
+  assignedTo: number | null;
+};

@@ -39,6 +39,7 @@
   background-color: var(--card-bg);
   border-radius: 0.5rem;
   box-shadow: var(--shadow-sm, 0 0 8px rgba(0, 0, 0, 0.05));
+  cursor: pointer;
 
   ul {
     list-style: none;
@@ -116,7 +117,6 @@
 
 .inProgress {
   background-color: var(--warning-color, #f9a825);
-  color: #000;
 }
 
 .completed {

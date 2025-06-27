@@ -1,5 +1,6 @@
 import { useMaintenanceStore } from "../store/useMaintenanceStore";
 import styles from "./Maintenance.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export const MaintenanceFilters = () => {
   const {
@@ -9,6 +10,12 @@ export const MaintenanceFilters = () => {
     setStatusFilter,
     resetFilters,
   } = useMaintenanceStore();
+
+  const navigate = useNavigate();
+
+  const handleNewRequest = () => {
+    navigate("/chamados/novo"); // Ajuste para sua rota do formulário de abertura
+  };
 
   return (
     <div className={styles.filtersContainer}>
@@ -32,6 +39,14 @@ export const MaintenanceFilters = () => {
       </select>
 
       <button onClick={resetFilters}>Limpar filtros</button>
+
+      <button
+        className={styles.newRequestButton}
+        type="button"
+        onClick={handleNewRequest}
+      >
+        + Novo Chamado
+      </button>
     </div>
   );
 };

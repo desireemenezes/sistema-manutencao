@@ -4,6 +4,12 @@
   border-radius: 8px;
   box-shadow: var(--shadow);
   margin-bottom: 2rem;
+  max-width: 100%;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    padding: 2rem 3rem;
+  }
 }
 
 .title {
