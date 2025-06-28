@@ -3,10 +3,7 @@ import CreateUser from "../components/CreateUser/CreateUser";
 
 export function UserForm() {
   return (
-    <Section
-      title="Novo Usuário"
-      description="Bem-vindo ao painel de controle."
-    >
+    <Section title="Novo Usuário" description="Cadastre um novo usuário.">
       <CreateUser />
     </Section>
   );

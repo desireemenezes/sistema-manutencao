@@ -4,7 +4,7 @@ export function Equipment() {
   return (
     <Section
       title="Equipamentos"
-      description="Bem-vindo ao painel de controle."
+      description="Controle de cadastro e edição de equipamentos."
     >
       {/* Aqui você pode renderizar cards, gráficos, etc. */}
     </Section>

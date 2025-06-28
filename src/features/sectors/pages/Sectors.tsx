@@ -3,7 +3,10 @@ import SectorList from "../components/SectorList";
 
 export function Sectors() {
   return (
-    <Section title="Setores" description="Bem-vindo ao painel de controle.">
+    <Section
+      title="Setores"
+      description="Controle de cadastro e edição de setores."
+    >
       <SectorList />
     </Section>
   );

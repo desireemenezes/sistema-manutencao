@@ -16,8 +16,6 @@ const CreateUser = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Criar Usuário</h1>
-
       <form onSubmit={onSubmit} className={styles.form}>
         <label>
           Nome:

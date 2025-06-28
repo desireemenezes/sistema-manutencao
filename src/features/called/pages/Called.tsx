@@ -4,10 +4,7 @@ import { MaintenanceList } from "../components/MaintenanceList";
 
 export function Called() {
   return (
-    <Section
-      title="Chamados em manutenção"
-      description="Bem-vindo ao painel de controle."
-    >
+    <Section title="Chamados em manutenção" description="Gerencie os chamados.">
       <div>
         <MaintenanceFilters />
         <MaintenanceList />
