@@ -19,6 +19,7 @@ export interface MaintenanceRequest {
   equipmentId?: number;
   sectorId: number;
   assignedTo?: number; // agente (userId)
+  requesterId: number; // <-- adiciona aqui o campo requesterId
   completionDate?: string | null;
   completionNotes?: string | null;
   partsUsed: PartUsed[];
@@ -32,4 +33,5 @@ export type CreateMaintenanceRequest = {
   sectorId: number | "";
   equipmentId?: number | "";
   assignedTo: number | null;
+  requesterId: number; // se necessário para criar
 };
