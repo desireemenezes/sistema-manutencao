@@ -1,4 +1,4 @@
-import type { UserRole } from "../types/Auth";
+import type { UserRole } from "@/types/Auth";
 
 export function getRedirectPathByRole(role: UserRole): string {
   switch (role) {

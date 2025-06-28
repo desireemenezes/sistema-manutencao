@@ -1,4 +1,4 @@
-import type { User } from "@/features/auth/types/Auth";
+import type { User } from "@/types/Auth";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

@@ -19,22 +19,19 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
-}
 
-.chart_wrapper {
-  flex: 1;
-  margin: 10px;
-}
-
-@media (max-width: 1020px) {
-  .charts_container {
-    flex-direction: column;
-  }
   .chart_wrapper {
-    margin-bottom: 20px;
+    flex: 1;
+    margin: 10px;
+  }
+
+  @media (max-width: 1020px) {
+    flex-direction: column;
+    .chart_wrapper {
+      margin-bottom: 20px;
+    }
   }
 }
-
 .counters {
   margin-top: 20px;
 }

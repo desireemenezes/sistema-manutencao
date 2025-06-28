@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { LoginForm } from "../LoginForm";
 import * as loginService from "../../api/loginRequest";
 import { useAuthStore } from "@/store/authStore";
-import type { User } from "../../types/Auth";
+import type { User } from "@/types/Auth";
 
 const fakeUser: User = {
   id: 1,

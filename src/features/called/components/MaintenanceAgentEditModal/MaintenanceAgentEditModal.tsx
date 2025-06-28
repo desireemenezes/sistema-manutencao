@@ -1,4 +1,4 @@
-import styles from "./MaintenanceAgentEditModal.module.scss";
+import styles from "./maintenanceAgentEditModal.module.scss";
 import { useEditMaintenanceForm } from "../../hooks/useEditMaintenanceForm";
 import type { MaintenanceRequest } from "@/types/Maintenance";
 

@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import type { User } from "../types/Auth";
+import type { User } from "@/types/Auth";
 
 interface UserFromApi extends User {
   password: string;

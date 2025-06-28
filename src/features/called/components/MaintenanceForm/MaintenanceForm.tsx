@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./MaintenanceForm.module.scss";
+import styles from "./maintenanceForm.module.scss";
 import { useCreateMaintenanceForm } from "../../hooks/useCreateMaintenanceForm";
 import { useCreateMaintenanceRequest } from "../../hooks/useCreateMaintenanceRequest";
 import { toast } from "react-toastify";

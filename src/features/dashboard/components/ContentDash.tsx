@@ -2,7 +2,7 @@ import { useMaintenanceStats } from "../hooks/useMaintenanceStats";
 import { useMaintenanceTypesChartData } from "../hooks/useMaintenanceTypesChartData";
 import { useAgentRequestsChartData } from "../hooks/useAgentRequestsChartData";
 import { BarChartComponent } from "./BarChartComponent";
-import styles from "./ContentDash.module.scss";
+import styles from "./contentDash.module.scss";
 import { Skeleton } from "./Skeleton/Skeleton";
 
 const COLORS = ["#0052cc", "#43a047"];

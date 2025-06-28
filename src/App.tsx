@@ -18,7 +18,7 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer position="top-right" autoClose={1000} />
         <AppRoutes />
       </BrowserRouter>
     </QueryClientProvider>

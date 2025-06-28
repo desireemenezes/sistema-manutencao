@@ -109,16 +109,16 @@
   font-weight: 600;
   color: #fff;
   text-transform: capitalize;
-}
 
-.open {
-  background-color: var(--danger-color, #e53935);
-}
+  &.open {
+    background-color: var(--danger-color, #e53935);
+  }
 
-.inProgress {
-  background-color: var(--warning-color, #f9a825);
-}
+  &.inProgress {
+    background-color: var(--warning-color, #f9a825);
+  }
 
-.completed {
-  background-color: var(--success-color, #43a047);
+  &.completed {
+    background-color: var(--success-color, #43a047);
+  }
 }
