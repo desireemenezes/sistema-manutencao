@@ -5,6 +5,15 @@
   margin-bottom: 1rem;
   align-items: center;
 
+  @media (max-width: 768px) {
+    select: {
+      width: 100%;
+    }
+    button {
+      width: 100%;
+    }
+  }
+
   select {
     padding: 0.5rem;
     border: 1px solid var(--border-color);

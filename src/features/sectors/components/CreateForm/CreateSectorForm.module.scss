@@ -1,9 +1,10 @@
-.filtersContainer {
+.form {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-direction: row;
   margin-bottom: 1rem;
-  align-items: center;
 
   input {
     padding: 0.5rem;
@@ -12,9 +13,8 @@
     font-size: 0.9rem;
     background-color: var(--card-bg);
     color: var(--text-color);
-    @media (max-width: 768px) {
-      width: 100%;
-    }
+    flex: 1;
+    min-width: 200px;
   }
 
   button {
@@ -30,5 +30,12 @@
     &:hover {
       background-color: var(--primary-dark);
     }
+  }
+
+  .error {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    width: 100%;
   }
 }

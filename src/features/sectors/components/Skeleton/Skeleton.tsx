@@ -1,6 +1,6 @@
-import styles from "./UserListSkeleton.module.scss";
+import styles from "./SectorListSkeleton.module.scss";
 
-const UserListSkeleton = () => {
+const SectorListSkeleton = () => {
   // Quantidade de linhas de loading que você quer mostrar
   const skeletonRows = Array.from({ length: 5 });
 
@@ -9,8 +9,7 @@ const UserListSkeleton = () => {
       <thead>
         <tr>
           <th>Nome</th>
-          <th>E-mail</th>
-          <th>Perfil</th>
+          <th>Categoria</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -22,9 +21,6 @@ const UserListSkeleton = () => {
             </td>
             <td>
               <div className={styles.skeletonBox} style={{ width: "180px" }} />
-            </td>
-            <td>
-              <div className={styles.skeletonBox} style={{ width: "100px" }} />
             </td>
             <td>
               <div
@@ -39,4 +35,4 @@ const UserListSkeleton = () => {
   );
 };
 
-export default UserListSkeleton;
+export default SectorListSkeleton;
