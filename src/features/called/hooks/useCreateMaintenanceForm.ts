@@ -6,28 +6,25 @@ import { useState } from "react";
 
 type FormData = Omit<
   CreateMaintenanceRequest,
-  | "id"
-  | "status"
-  | "assignedTo"
-  | "completionDate"
-  | "completionNotes"
-  | "partsUsed"
+  "id" | "status" | "completionDate" | "completionNotes" | "partsUsed"
 > & {
-  type?: MaintenanceType | ""; // Permite string vazia temporariamente para o select
+  type?: MaintenanceType | ""; // permite string vazia temporariamente para select
   sectorId?: number | "";
   equipmentId?: number | "";
-  assignedTo: null;
+  assignedTo: number | null;
+  requesterId: number; // obrigatório
 };
 
 export const useCreateMaintenanceForm = () => {
   const [formData, setFormData] = useState<FormData>({
-    type: "", // inicialmente vazio para o select
+    type: "",
     priority: "",
     description: "",
     relatedTo: "equipment",
     sectorId: "",
     equipmentId: "",
     assignedTo: null,
+    requesterId: 0, // ou coloque user.id, se disponível no contexto
   });
 
   const handleChange = (
@@ -45,7 +42,6 @@ export const useCreateMaintenanceForm = () => {
       formattedValue = value === "" ? undefined : Number(value);
     }
 
-    // Para o campo "type", converta "" para undefined para evitar erro de tipo
     if (name === "type" && value === "") {
       formattedValue = undefined;
     }
@@ -65,6 +61,7 @@ export const useCreateMaintenanceForm = () => {
       sectorId: "",
       equipmentId: "",
       assignedTo: null,
+      requesterId: 0, // sempre presente
     });
   };
 
