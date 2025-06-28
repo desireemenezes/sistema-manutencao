@@ -1,4 +1,4 @@
-import styles from "./skeletonItem.module.scss";
+import styles from "./SkeletonItem.module.scss";
 
 export const SkeletonItem = () => {
   return (

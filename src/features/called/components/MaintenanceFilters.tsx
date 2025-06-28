@@ -1,5 +1,5 @@
 import { useMaintenanceStore } from "../store/useMaintenanceStore";
-import styles from "./maintenance.module.scss";
+import styles from "./Maintenance.module.scss";
 import { useNavigate } from "react-router-dom";
 
 export const MaintenanceFilters = () => {

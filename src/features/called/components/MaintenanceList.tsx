@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SkeletonItem } from "./Skeleton/SkeletonItem";
 import { useMaintenanceStore } from "../store/useMaintenanceStore";
 import { MaintenanceAgentEditModal } from "./MaintenanceAgentEditModal/MaintenanceAgentEditModal";
-import styles from "./maintenance.module.scss";
+import styles from "./Maintenance.module.scss";
 
 import { toast } from "react-toastify";
 
