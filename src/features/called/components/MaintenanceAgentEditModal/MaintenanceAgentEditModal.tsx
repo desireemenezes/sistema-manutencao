@@ -1,6 +1,6 @@
 import styles from "./MaintenanceAgentEditModal.module.scss";
-import type { MaintenanceRequest } from "../../types/Maintenance";
 import { useEditMaintenanceForm } from "../../hooks/useEditMaintenanceForm";
+import type { MaintenanceRequest } from "@/types/Maintenance";
 
 type Props = {
   maintenance: MaintenanceRequest;

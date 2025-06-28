@@ -1,8 +1,8 @@
-import { create } from "zustand";
 import type {
   MaintenanceRequest,
   MaintenanceStatus,
-} from "../types/Maintenance";
+} from "@/types/Maintenance";
+import { create } from "zustand";
 
 interface MaintenanceStoreState {
   // Filtros

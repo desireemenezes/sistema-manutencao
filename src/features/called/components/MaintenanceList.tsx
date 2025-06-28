@@ -3,14 +3,12 @@ import { SkeletonItem } from "./Skeleton/SkeletonItem";
 import { useMaintenanceStore } from "../store/useMaintenanceStore";
 import { MaintenanceAgentEditModal } from "./MaintenanceAgentEditModal/MaintenanceAgentEditModal";
 import styles from "./Maintenance.module.scss";
-import { useTechnicians } from "../api/useTechnicians";
 
 import { toast } from "react-toastify";
-import {
-  useMaintenanceList,
-  useUpdateMaintenance,
-} from "../api/maintenanceApi";
+
 import { useAuthStore } from "@/store/authStore";
+import { useTechnicians } from "@/api/useTechnicians";
+import { useMaintenanceList, useUpdateMaintenance } from "@/api/maintenanceApi";
 
 export const MaintenanceList = () => {
   const user = useAuthStore((state) => state.user);

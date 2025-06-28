@@ -1,8 +1,8 @@
-import { useState } from "react";
 import type {
   CreateMaintenanceRequest,
   MaintenanceType,
-} from "../types/Maintenance";
+} from "@/types/Maintenance";
+import { useState } from "react";
 
 type FormData = Omit<
   CreateMaintenanceRequest,

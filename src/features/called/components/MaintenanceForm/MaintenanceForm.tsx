@@ -3,7 +3,7 @@ import styles from "./MaintenanceForm.module.scss";
 import { useCreateMaintenanceForm } from "../../hooks/useCreateMaintenanceForm";
 import { useCreateMaintenanceRequest } from "../../hooks/useCreateMaintenanceRequest";
 import { toast } from "react-toastify";
-import { useTechnicians } from "../../api/useTechnicians";
+import { useTechnicians } from "@/api/useTechnicians";
 
 export const MaintenanceForm = () => {
   const { formData, handleChange, resetForm } = useCreateMaintenanceForm();
