@@ -1,13 +1,20 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { api } from "../../../lib/api"; // ajuste o caminho conforme sua estrutura
 import type { MaintenanceRequest } from "../types/Maintenance";
+import { api } from "@/lib/api";
 
 // Buscar lista de chamados
 export const useMaintenanceList = () => {
-  return useQuery<MaintenanceRequest[]>(["maintenanceRequests"], async () => {
-    const { data } = await api.get("/maintenanceRequests");
-    return data;
-  });
+  return useQuery<MaintenanceRequest[]>(
+    ["maintenanceRequests"],
+    async () => {
+      const { data } = await api.get("/maintenanceRequests");
+      return data;
+    },
+    {
+      staleTime: 1000 * 60 * 5, // 5 minutos
+      refetchOnWindowFocus: false,
+    }
+  );
 };
 
 // Criar chamado

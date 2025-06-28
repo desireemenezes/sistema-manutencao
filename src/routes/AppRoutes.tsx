@@ -6,11 +6,11 @@ import { Called } from "@/features/called/pages/Called";
 import { Users } from "@/features/users/pages/Users";
 import { Sectors } from "@/features/sectors/pages/Sectors";
 import { Equipment } from "@/features/equipment/pages/Equipment";
-import { MyCalled } from "@/features/myCalled/pages/MyCalled";
 import { History } from "@/features/history/pages/History";
 import { CalledForm } from "@/features/called/pages/CalledForm";
 import { useAuth } from "@/hooks/useAuth";
 import { CalledAssigned } from "@/features/called/pages/CalledAssigned";
+import { CalledMy } from "@/features/called/pages/CalledMy";
 
 export function AppRoutes() {
   const { isAuthenticated, user } = useAuth();
@@ -46,7 +46,10 @@ export function AppRoutes() {
         )}
 
         {role === "researcher" && (
-          <Route path="/meus-chamados" element={<MyCalled />} />
+          <>
+            <Route path="/meus-chamados" element={<CalledMy />} />
+            <Route path="/chamados/novo" element={<CalledForm />} />
+          </>
         )}
 
         {/* Redirecionamento para rota inicial correta */}

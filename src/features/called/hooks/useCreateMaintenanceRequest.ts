@@ -5,7 +5,7 @@ import { useMaintenanceStore } from "../store/useMaintenanceStore";
 import type {
   CreateMaintenanceRequest,
   MaintenanceRequest,
-} from "../types/Maintenance";
+} from "@/types/Maintenance";
 
 type UseCreateMaintenanceRequestProps = {
   onSuccessCallback?: () => void;

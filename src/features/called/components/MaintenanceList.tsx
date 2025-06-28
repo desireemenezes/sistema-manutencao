@@ -3,17 +3,17 @@ import { SkeletonItem } from "./Skeleton/SkeletonItem";
 import { useMaintenanceStore } from "../store/useMaintenanceStore";
 import { MaintenanceAgentEditModal } from "./MaintenanceAgentEditModal/MaintenanceAgentEditModal";
 import styles from "./Maintenance.module.scss";
-import { useTechnicians } from "../api/useTechnicians";
 
 import { toast } from "react-toastify";
-import {
-  useMaintenanceList,
-  useUpdateMaintenance,
-} from "../api/maintenanceApi";
+
 import { useAuthStore } from "@/store/authStore";
+import { useTechnicians } from "@/api/useTechnicians";
+import { useMaintenanceList, useUpdateMaintenance } from "@/api/maintenanceApi";
 
 export const MaintenanceList = () => {
   const user = useAuthStore((state) => state.user);
+  const isReadOnly = user?.role === "researcher";
+
   const { data: technicians = [] } = useTechnicians();
   const {
     typeFilter,
@@ -61,10 +61,8 @@ export const MaintenanceList = () => {
   };
 
   const getTechnicianName = (id: number | null | undefined) => {
-    console.log("Buscando técnico para assignedTo:", id);
     if (!id) return "Não atribuído";
     const tech = technicians.find((t) => t.id === id);
-    if (!tech) console.log("Técnico não encontrado para id:", id);
     return tech ? tech.fullName : "Desconhecido";
   };
 
@@ -104,11 +102,13 @@ export const MaintenanceList = () => {
                     : styles.borderCompleted
                 }
               `}
-              onClick={() => openModal(item)}
-              role="button"
-              tabIndex={0}
+              onClick={() => {
+                if (!isReadOnly) openModal(item);
+              }}
+              role={isReadOnly ? undefined : "button"}
+              tabIndex={isReadOnly ? -1 : 0}
               onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
+                if (!isReadOnly && (e.key === "Enter" || e.key === " ")) {
                   openModal(item);
                 }
               }}
@@ -154,7 +154,7 @@ export const MaintenanceList = () => {
         </ul>
       )}
 
-      {isModalOpen && selectedRequest && (
+      {!isReadOnly && isModalOpen && selectedRequest && (
         <MaintenanceAgentEditModal
           maintenance={selectedRequest}
           onClose={closeModal}

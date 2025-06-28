@@ -1,9 +1,9 @@
-import { useState } from "react";
 import type {
   MaintenanceRequest,
   MaintenanceStatus,
   PartUsed,
-} from "../types/Maintenance";
+} from "@/types/Maintenance";
+import { useState } from "react";
 
 export const useEditMaintenanceForm = (maintenance: MaintenanceRequest) => {
   const [status, setStatus] = useState<MaintenanceStatus>(maintenance.status);
