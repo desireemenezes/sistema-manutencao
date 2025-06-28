@@ -10,7 +10,6 @@ import { History } from "@/features/history/pages/History";
 import { CalledForm } from "@/features/called/pages/CalledForm";
 import { useAuth } from "@/hooks/useAuth";
 import { CalledAssigned } from "@/features/called/pages/CalledAssigned";
-import { CalledMy } from "@/features/called/pages/CalledMy";
 
 export function AppRoutes() {
   const { isAuthenticated, user } = useAuth();
@@ -47,7 +46,7 @@ export function AppRoutes() {
 
         {role === "researcher" && (
           <>
-            <Route path="/meus-chamados" element={<CalledMy />} />
+            <Route path="/chamados" element={<Called />} />
             <Route path="/chamados/novo" element={<CalledForm />} />
           </>
         )}
@@ -62,7 +61,7 @@ export function AppRoutes() {
                   ? "/dashboard"
                   : role === "technician"
                   ? "/chamados-atribuidos"
-                  : "/meus-chamados"
+                  : "/chamados"
               }
               replace
             />

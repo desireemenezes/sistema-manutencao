@@ -38,7 +38,5 @@ export const SIDEBAR_LINKS_BY_ROLE: Record<
       icon: FaUserCheck,
     },
   ],
-  researcher: [
-    { label: "Meus Chamados", to: "/meus-chamados", icon: FaClipboardList },
-  ],
+  researcher: [{ label: "Chamados", to: "/Chamados", icon: FaClipboardList }],
 };

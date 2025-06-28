@@ -5,7 +5,7 @@ import { MaintenanceList } from "../components/MaintenanceList";
 export function Called() {
   return (
     <Section
-      title="Chamados em Manutenção"
+      title="Chamados em manutenção"
       description="Bem-vindo ao painel de controle."
     >
       <div>
