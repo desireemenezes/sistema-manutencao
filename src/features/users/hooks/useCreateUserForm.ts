@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { User } from "@/types/User";
+import type { User } from "@/types/Auth";
 import useUsers from "./useUsers";
 
 interface Errors {

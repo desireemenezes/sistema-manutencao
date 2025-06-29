@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { api } from "@/lib/api";
-import type { User } from "../types/User";
+import type { User } from "../types/Auth";
 
 export const useTechnicians = () => {
   return useQuery<User[]>(
