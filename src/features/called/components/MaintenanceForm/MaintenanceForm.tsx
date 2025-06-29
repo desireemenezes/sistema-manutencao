@@ -36,8 +36,6 @@ export const MaintenanceForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <h2>Abrir novo chamado</h2>
-
       <label>
         Tipo de manutenção:
         <select

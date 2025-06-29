@@ -5,6 +5,15 @@
   margin-bottom: 1rem;
   align-items: center;
 
+  @media (max-width: 768px) {
+    select: {
+      width: 100%;
+    }
+    button {
+      width: 100%;
+    }
+  }
+
   select {
     padding: 0.5rem;
     border: 1px solid var(--border-color);
@@ -66,15 +75,15 @@
     }
 
     &.borderOpen {
-      border-left-color: var(--danger-color, #e53935);
+      border-left-color: var(--error-color);
     }
 
     &.borderInProgress {
-      border-left-color: var(--warning-color, #f9a825);
+      border-left-color: var(--warning-color);
     }
 
     &.borderCompleted {
-      border-left-color: var(--success-color, #43a047);
+      border-left-color: var(--success-color);
     }
 
     strong {

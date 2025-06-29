@@ -10,6 +10,8 @@ import { History } from "@/features/history/pages/History";
 import { CalledForm } from "@/features/called/pages/CalledForm";
 import { useAuth } from "@/hooks/useAuth";
 import { CalledAssigned } from "@/features/called/pages/CalledAssigned";
+import { UserForm } from "@/features/users/pages/UserForm";
+import { EquipmentForm } from "@/features/equipment/pages/EquipmentForm";
 
 export function AppRoutes() {
   const { isAuthenticated, user } = useAuth();
@@ -34,8 +36,10 @@ export function AppRoutes() {
             <Route path="/chamados/novo" element={<CalledForm />} />{" "}
             {/* Nova rota */}
             <Route path="/usuarios" element={<Users />} />
+            <Route path="/usuarios/novo" element={<UserForm />} />
             <Route path="/setores" element={<Sectors />} />
             <Route path="/equipamentos" element={<Equipment />} />
+            <Route path="/equipamentos/novo" element={<EquipmentForm />} />
             <Route path="/historico" element={<History />} />
           </>
         )}
