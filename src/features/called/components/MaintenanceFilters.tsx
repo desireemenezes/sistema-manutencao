@@ -38,7 +38,7 @@ export const MaintenanceFilters = () => {
         <option value="completed">Concluído</option>
       </select>
 
-      <button onClick={resetFilters}>Limpar filtros</button>
+      <button onClick={resetFilters}>Limpar Filtros</button>
 
       <button
         className={styles.newRequestButton}

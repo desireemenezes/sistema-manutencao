@@ -9,16 +9,17 @@ export default defineConfig({
   plugins: [
     react(),
 
-    // Compressão Gzip e Brotli para produção
+    // Compressão Brotli para arquivos .js/.css em produção
     viteCompression({
       algorithm: "brotliCompress",
       ext: ".br",
+      deleteOriginFile: false, // mantém os arquivos originais
     }),
 
-    // Visualização do tamanho dos chunks (acessar em /stats.html)
+    // Geração de visualização interativa do bundle (acessível via ./dist/stats.html)
     visualizer({
       filename: "./dist/stats.html",
-      open: false,
+      open: false, // pode usar true para abrir automaticamente após build
       gzipSize: true,
       brotliSize: true,
     }),
@@ -26,24 +27,25 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      "@": path.resolve(__dirname, "src"), // para usar "@/caminho" ao invés de "../../"
     },
   },
 
   build: {
-    sourcemap: false,
+    sourcemap: false, // desativa source maps na produção
+    minify: "esbuild", // minificação rápida com esbuild (padrão do Vite)
 
-    // Divisão de chunks para evitar bundles grandes
     rollupOptions: {
       output: {
+        // Divisão manual de chunks para reduzir JS inicial
         manualChunks: {
           react: ["react", "react-dom"],
-          icons: ["react-icons/fa"], // Adapte com base no que usa
+          icons: ["react-icons/fa"],
+          charts: ["recharts"],
+          router: ["react-router-dom"],
+          ui: ["react-toastify", "react-hook-form", "zustand"],
         },
       },
     },
-
-    // Habilita compressão e otimizações adicionais
-    minify: "esbuild", // padrão já eficiente
   },
 });

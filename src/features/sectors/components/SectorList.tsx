@@ -1,15 +1,15 @@
-import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import styles from "./SectorList.module.scss"; // importe o módulo CSS
 import useSectors from "../store/useSectors";
 import { useSectorActions } from "../store/useSectorActions";
 import type { Sector } from "../types/Sector";
 import { EditSectorModal } from "./EditModal/EditSectorModal";
-import { SectorFilter } from "./FilterContainer/SectorFilter";
-import Pagination from "./Pagination/Pagination";
 import DeleteSectorModal from "./DeleteModal/DeleteSectorModal";
 import CreateSectorForm from "./CreateForm/CreateSectorForm";
 import SectorListSkeleton from "./Skeleton/Skeleton";
+import { useSectorStore } from "../store/useSectorStore";
+import { GenericFilterBar } from "@/components/FilterBar/GenericFilterBar";
+import Pagination from "@/components/Pagination/Pagination";
 
 const SectorList = () => {
   const {
@@ -33,6 +33,8 @@ const SectorList = () => {
     confirmEdit,
     confirmDelete,
   } = useSectorActions();
+
+  const { filter, setFilter } = useSectorStore();
 
   if (isLoading) return <SectorListSkeleton />;
 
@@ -70,7 +72,11 @@ const SectorList = () => {
 
   return (
     <>
-      <SectorFilter />
+      <GenericFilterBar
+        value={filter}
+        onChange={setFilter}
+        placeholder="Filtrar setores"
+      ></GenericFilterBar>
       <div className={styles.content_sectors}>
         {/* Criar setor */}
         <CreateSectorForm onCreate={createSector} />
@@ -121,6 +127,7 @@ const SectorList = () => {
         {renderMobileList()}
 
         {/* Paginação */}
+
         <Pagination
           currentPage={currentPage}
           itemsPerPage={sectorsPerPage}

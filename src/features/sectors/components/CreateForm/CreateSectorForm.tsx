@@ -40,7 +40,7 @@ const CreateSectorForm = ({ onCreate }: CreateSectorFormProps) => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       />
-      <button type="submit">Adicionar Setor</button>
+      <button type="submit">+ Adicionar Setor</button>
       {error && <p className={styles.error}>{error}</p>}
     </form>
   );

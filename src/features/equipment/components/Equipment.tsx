@@ -2,13 +2,13 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { useEquipmentActions } from "../store/useEquipmentActions";
 import useEquipments from "../store/useEquipments";
 import styles from "./EquipmentList.module.scss";
-import { EquipmentFilter } from "./FilterContainer/EquipmentFilter";
-import Pagination from "./Pagination/Pagination";
-import EditEquipmentModal, {
-  type Equipment,
-} from "./EditModal/EditEquipmentModal";
+import EditEquipmentModal from "./EditModal/EditEquipmentModal";
 import ConfirmModal from "./ConfirmModal/ConfirmModal";
 import EquipmentListSkeleton from "./Skeleton/EquipmentListSkeleton";
+import { useEquipmentStore } from "../store/useEquipmentStore";
+import { useNavigate } from "react-router-dom";
+import { GenericFilterBar } from "@/components/FilterBar/GenericFilterBar";
+import Pagination from "@/components/Pagination/Pagination";
 
 const Equipments = () => {
   const {
@@ -31,6 +31,9 @@ const Equipments = () => {
     confirmEdit,
     confirmDelete,
   } = useEquipmentActions();
+
+  const { filter, setFilter } = useEquipmentStore();
+  const navigate = useNavigate();
 
   if (isLoading) return <EquipmentListSkeleton />;
 
@@ -80,7 +83,15 @@ const Equipments = () => {
 
   return (
     <>
-      <EquipmentFilter />
+      <GenericFilterBar
+        value={filter}
+        onChange={setFilter}
+        placeholder="Filtrar equipamentos"
+      >
+        <button onClick={() => navigate("/equipamentos/novo")}>
+          + Novo Equipamento
+        </button>
+      </GenericFilterBar>
       <div className={styles.content_equipments}>
         {equipments.length === 0 && <p>Nenhum equipamento encontrado</p>}
 
@@ -126,8 +137,8 @@ const Equipments = () => {
 
         <Pagination
           currentPage={currentPage}
-          usersPerPage={equipmentsPerPage}
-          totalUsers={totalEquipments}
+          itemsPerPage={equipmentsPerPage}
+          totalItems={totalEquipments}
           paginate={paginate}
         />
 

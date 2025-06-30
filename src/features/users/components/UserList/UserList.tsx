@@ -1,12 +1,14 @@
 import styles from "./UserList.module.scss";
-import { UserFilter } from "../FilterContainer/FilterContainer";
-import { Pagination } from "../Pagination/Pagination";
 import useUsers from "../../hooks/useUsers";
 import { useUserActions } from "../../hooks/useUserActions";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import EditUserModal from "../EditModal/EditUserModal";
 import UserListSkeleton from "../Skeleton/UserListSkeleton";
+import { useUserStore } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
+import { GenericFilterBar } from "@/components/FilterBar/GenericFilterBar";
+import Pagination from "@/components/Pagination/Pagination";
 
 // Mapeamento para nomes amigáveis dos perfis
 const roleLabels: Record<string, string> = {
@@ -30,6 +32,9 @@ const Users = () => {
     confirmEdit,
     confirmDelete,
   } = useUserActions();
+
+  const { filter, setFilter } = useUserStore();
+  const navigate = useNavigate();
 
   if (isLoading) return <UserListSkeleton />;
 
@@ -69,7 +74,15 @@ const Users = () => {
 
   return (
     <>
-      <UserFilter />
+      <GenericFilterBar
+        value={filter}
+        onChange={setFilter}
+        placeholder="Filtrar usuários"
+      >
+        <button onClick={() => navigate("/usuarios/novo")}>
+          + Novo Usuário
+        </button>
+      </GenericFilterBar>
       <div className={styles.content_users}>
         {users.length === 0 && <p>Nenhum usuário encontrado</p>}
 
@@ -115,8 +128,8 @@ const Users = () => {
 
         <Pagination
           currentPage={currentPage}
-          usersPerPage={usersPerPage}
-          totalUsers={totalUsers}
+          itemsPerPage={usersPerPage}
+          totalItems={totalUsers}
           paginate={paginate}
         />
 
