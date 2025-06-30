@@ -24,7 +24,6 @@ export const useCreateMaintenanceRequest = ({
       const response = await api.post("/maintenanceRequests", {
         ...formData,
         status: "open",
-        assignedTo: null,
         completionDate: null,
         completionNotes: null,
         partsUsed: [],

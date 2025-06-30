@@ -9,12 +9,17 @@ import { toast } from "react-toastify";
 import { useAuthStore } from "@/store/authStore";
 import { useTechnicians } from "@/api/useTechnicians";
 import { useMaintenanceList, useUpdateMaintenance } from "@/api/maintenanceApi";
+import { useSectors } from "@/features/sectors/hooks/useSectors";
+import useEquipments from "@/features/equipment/store/useEquipments";
 
 export const MaintenanceList = () => {
   const user = useAuthStore((state) => state.user);
   const isReadOnly = user?.role === "researcher";
 
   const { data: technicians = [] } = useTechnicians();
+  const { equipments = [] } = useEquipments();
+  const { data: sectors = [] } = useSectors();
+
   const {
     typeFilter,
     statusFilter,
@@ -64,6 +69,18 @@ export const MaintenanceList = () => {
     if (!id) return "Não atribuído";
     const tech = technicians.find((t) => t.id === id);
     return tech ? tech.fullName : "Desconhecido";
+  };
+
+  const getEquipmentName = (id: number | null | undefined) => {
+    if (!id) return "-";
+    const eq = equipments.find((e) => e.id === id);
+    return eq ? `${eq.name} (${eq.code})` : "Desconhecido";
+  };
+
+  const getSectorName = (id: number | null | undefined) => {
+    if (!id) return "-";
+    const sector = sectors.find((s) => s.id === id);
+    return sector ? sector.name : "Desconhecido";
   };
 
   if (isLoading) {
@@ -131,16 +148,40 @@ export const MaintenanceList = () => {
                     : "Concluído"}
                 </span>
               </div>
+
               <p>
                 Prioridade:{" "}
-                <strong>{item.priority === "high" ? "Alta" : "Média"}</strong>
+                <strong>
+                  {item.priority === "high"
+                    ? "Alta"
+                    : item.priority === "medium"
+                    ? "Média"
+                    : "Baixa"}
+                </strong>
               </p>
-              <em>
-                Tipo: {item.type === "corrective" ? "Corretiva" : "Preventiva"}
-              </em>
+
+              <p>
+                Tipo:{" "}
+                <strong>
+                  {item.type === "corrective" ? "Corretiva" : "Preventiva"}
+                </strong>
+              </p>
+
+              <p>
+                Setor: <strong>{getSectorName(item.sectorId)}</strong>
+              </p>
+
+              {item.relatedTo === "equipment" && (
+                <p>
+                  Equipamento:{" "}
+                  <strong>{getEquipmentName(item.equipmentId)}</strong>
+                </p>
+              )}
+
               <p>
                 Agente: <strong>{getTechnicianName(item.assignedTo)}</strong>
               </p>
+
               {item.status === "completed" && item.completionDate && (
                 <p>
                   Concluído em:{" "}

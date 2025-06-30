@@ -34,7 +34,7 @@ export const useCreateMaintenanceForm = () => {
   ) => {
     const { name, value } = e.target;
 
-    const numericFields = ["sectorId", "equipmentId"];
+    const numericFields = ["sectorId", "equipmentId", "assignedTo"];
 
     let formattedValue: string | number | undefined = value;
 
