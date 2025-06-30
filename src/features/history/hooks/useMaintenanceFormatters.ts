@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { Maintenance } from "../Maintenance";
+import type { Maintenance } from "../types/Maintenance";
 
 const statusLabels = {
   open: "Aberto",

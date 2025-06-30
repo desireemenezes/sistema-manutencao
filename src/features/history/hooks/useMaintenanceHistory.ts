@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { getMaintenanceRequests } from "../api/maintenance";
-import type { Maintenance } from "../Maintenance";
 import { useMaintenanceStore } from "../store/useMaintenance";
+import type { Maintenance } from "../types/Maintenance";
 
 export const useMaintenanceHistory = () => {
   const { filter, currentPage, maintenancesPerPage, setCurrentPage } =

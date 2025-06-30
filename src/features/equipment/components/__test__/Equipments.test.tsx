@@ -1,6 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import Equipments from "../Equipment";
 import { MemoryRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+// Crie um QueryClient
+const queryClient = new QueryClient();
 
 // Mock dos hooks utilizados no componente
 jest.mock("../../store/useEquipments", () => ({
@@ -33,9 +37,11 @@ jest.mock("../../store/useEquipmentActions", () => ({
 describe("Equipments component", () => {
   it("renderiza a tabela de equipamentos na tela", () => {
     render(
-      <MemoryRouter>
-        <Equipments />
-      </MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <Equipments />
+        </MemoryRouter>
+      </QueryClientProvider>
     );
 
     // Verifica os headers da tabela

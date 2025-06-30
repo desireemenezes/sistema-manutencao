@@ -11,11 +11,11 @@ jest.mock("@/hooks/useAuth", () => ({
   }),
 }));
 
-const closeSidebarMock = jest.fn();
+const mockCloseSidebar = jest.fn();
 jest.mock("@/hooks/useSidebar", () => ({
   useSidebar: () => ({
     isOpen: true,
-    closeSidebar: closeSidebarMock,
+    closeSidebar: mockCloseSidebar,
   }),
 }));
 
@@ -50,6 +50,10 @@ const renderSidebar = () => {
 };
 
 describe("Sidebar", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("deve renderizar o menu com os links do perfil 'researcher'", () => {
     renderSidebar();
 
@@ -67,6 +71,6 @@ describe("Sidebar", () => {
     const link = screen.getByText("Dashboard");
     await user.click(link);
 
-    expect(closeSidebarMock).toHaveBeenCalled();
+    expect(mockCloseSidebar).toHaveBeenCalledTimes(1);
   });
 });
