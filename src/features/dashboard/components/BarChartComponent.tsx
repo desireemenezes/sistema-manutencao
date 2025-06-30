@@ -1,4 +1,12 @@
-import { BarChart, Bar, XAxis, YAxis } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from "recharts";
 
 interface BarChartComponentProps {
   data: any[];
@@ -16,13 +24,20 @@ export const BarChartComponent = ({
   color,
 }: BarChartComponentProps) => {
   return (
-    <div>
+    <section aria-label={title} style={{ width: "100%", height: 300 }}>
       <h3>{title}</h3>
-      <BarChart width={300} height={250} data={data}>
-        <XAxis dataKey={xAxisDataKey} />
-        <YAxis />
-        <Bar dataKey={dataKey} fill={color} />
-      </BarChart>
-    </div>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={data}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey={xAxisDataKey} />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey={dataKey} fill={color} />
+        </BarChart>
+      </ResponsiveContainer>
+    </section>
   );
 };

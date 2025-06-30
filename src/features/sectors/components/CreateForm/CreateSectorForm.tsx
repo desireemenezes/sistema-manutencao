@@ -1,6 +1,4 @@
-// components/CreateSectorForm/CreateSectorForm.tsx
-
-import { useState, type FormEvent } from "react";
+import { useState, useRef, type FormEvent } from "react";
 import styles from "./CreateSectorForm.module.scss";
 
 interface CreateSectorFormProps {
@@ -12,10 +10,14 @@ const CreateSectorForm = ({ onCreate }: CreateSectorFormProps) => {
   const [category, setCategory] = useState("");
   const [error, setError] = useState("");
 
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     if (!name.trim()) {
       setError("O nome do setor é obrigatório.");
+      nameInputRef.current?.focus();
       return;
     }
 
@@ -26,22 +28,45 @@ const CreateSectorForm = ({ onCreate }: CreateSectorFormProps) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      <label htmlFor="sector-name" className="sr-only">
+        Nome do novo setor
+      </label>
       <input
+        id="sector-name"
         type="text"
+        ref={nameInputRef}
         placeholder="Nome do novo setor"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
+        aria-invalid={!!error}
       />
+
+      <label htmlFor="sector-category" className="sr-only">
+        Categoria (opcional)
+      </label>
       <input
+        id="sector-category"
         type="text"
         placeholder="Categoria (opcional)"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       />
-      <button type="submit">+ Adicionar Setor</button>
-      {error && <p className={styles.error}>{error}</p>}
+
+      <button
+        type="submit"
+        aria-label="Adicionar novo setor"
+        disabled={!name.trim()}
+      >
+        + Adicionar Setor
+      </button>
+
+      {error && (
+        <p className={styles.error} role="alert">
+          {error}
+        </p>
+      )}
     </form>
   );
 };

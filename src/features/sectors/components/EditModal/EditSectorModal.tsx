@@ -13,47 +13,68 @@ export const EditSectorModal = ({
   onClose,
   onSave,
 }: EditSectorModalProps) => {
-  const [formData, setFormData] = useState<Sector>({
-    id: 0,
-    name: "",
-    category: "",
-  });
+  const [formData, setFormData] = useState<Sector>(sector);
 
   useEffect(() => {
-    if (sector) {
-      setFormData(sector);
-    }
+    setFormData(sector);
   }, [sector]);
+
+  // Fecha modal com ESC
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    if (!formData.name.trim()) {
+      alert("O nome do setor é obrigatório.");
+      return;
+    }
+
     onSave(formData);
   };
 
   return (
-    <div className={styles.modalOverlay}>
+    <div
+      className={styles.modalOverlay}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="edit-sector-title"
+    >
       <div className={styles.modalContent}>
+        <h3 id="edit-sector-title">Editar Setor</h3>
         <form onSubmit={handleSubmit}>
-          <label>
+          <label htmlFor="sector-name">
             Nome do Setor:
             <input
+              id="sector-name"
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
+              autoFocus
             />
           </label>
 
-          <label>
+          <label htmlFor="sector-category">
             Categoria:
             <input
+              id="sector-category"
               name="category"
               value={formData.category || ""}
               onChange={handleChange}
@@ -64,11 +85,8 @@ export const EditSectorModal = ({
             <button
               type="button"
               className={styles.cancel}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onClose();
-              }}
+              onClick={onClose}
+              aria-label="Cancelar edição"
             >
               Cancelar
             </button>

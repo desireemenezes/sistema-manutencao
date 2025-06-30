@@ -18,8 +18,12 @@ export const MaintenanceFilters = () => {
   };
 
   return (
-    <div className={styles.filtersContainer}>
+    <form className={styles.filtersContainer} aria-label="Filtros de chamados">
+      <label htmlFor="type-filter" className="sr-only">
+        Filtrar por tipo
+      </label>
       <select
+        id="type-filter"
         value={typeFilter ?? ""}
         onChange={(e) => setTypeFilter(e.target.value || null)}
       >
@@ -28,7 +32,11 @@ export const MaintenanceFilters = () => {
         <option value="preventive">Preventiva</option>
       </select>
 
+      <label htmlFor="status-filter" className="sr-only">
+        Filtrar por status
+      </label>
       <select
+        id="status-filter"
         value={statusFilter ?? ""}
         onChange={(e) => setStatusFilter(e.target.value || null)}
       >
@@ -38,15 +46,18 @@ export const MaintenanceFilters = () => {
         <option value="completed">Concluído</option>
       </select>
 
-      <button onClick={resetFilters}>Limpar Filtros</button>
+      <button type="button" onClick={resetFilters} aria-label="Limpar filtros">
+        Limpar Filtros
+      </button>
 
       <button
         className={styles.newRequestButton}
         type="button"
         onClick={handleNewRequest}
+        aria-label="Abrir formulário para novo chamado"
       >
         + Novo Chamado
       </button>
-    </div>
+    </form>
   );
 };

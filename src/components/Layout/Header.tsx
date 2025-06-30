@@ -27,7 +27,9 @@ export default function Header() {
       </button>
       <h1 className={styles["header-title"]}>ArticOps</h1>
       <div className={styles["user-info"]}>
-        <p tabIndex={0}>Olá, {user?.fullName}</p>
+        <p tabIndex={0} aria-live="polite">
+          Olá, {user?.fullName || "usuário"}
+        </p>
         <ThemeToggle />
         <button onClick={handleLogout} aria-label="Sair do sistema">
           Sair

@@ -21,9 +21,18 @@ const MaintenanceHistory = () => {
   if (isLoading) return <MaintenanceHistorySkeleton />;
 
   const renderMobileList = () => (
-    <div className={styles.mobileList}>
+    <div
+      className={styles.mobileList}
+      role="list"
+      aria-label="Lista de manutenções em formato mobile"
+    >
       {maintenances.map((maintenance) => (
-        <div key={maintenance.id} className={styles.mobileListItem}>
+        <div
+          key={maintenance.id}
+          className={styles.mobileListItem}
+          role="listitem"
+          aria-label={`Manutenção ${maintenance.id}`}
+        >
           <p>
             <strong>ID:</strong> {maintenance.id}
           </p>
@@ -49,16 +58,21 @@ const MaintenanceHistory = () => {
     <>
       <MaintenanceFilter onExport={exportCSV} />
       <div className={styles.content_maintenances}>
-        {maintenances.length === 0 && <p>Nenhuma manutenção encontrada</p>}
+        {maintenances.length === 0 && (
+          <p role="status">Nenhuma manutenção encontrada</p>
+        )}
 
-        <table className={styles.desktopTable}>
+        <table
+          className={styles.desktopTable}
+          aria-label="Tabela de histórico de manutenções"
+        >
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Descrição</th>
-              <th>Tipo</th>
-              <th>Data Conclusão</th>
-              <th>Status</th>
+              <th scope="col">ID</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Data Conclusão</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>

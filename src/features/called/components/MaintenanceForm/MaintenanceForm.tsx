@@ -4,11 +4,14 @@ import { useCreateMaintenanceForm } from "../../hooks/useCreateMaintenanceForm";
 import { useCreateMaintenanceRequest } from "../../hooks/useCreateMaintenanceRequest";
 import { toast } from "react-toastify";
 import { useTechnicians } from "@/api/useTechnicians";
+import { useSectors } from "@/features/sectors/hooks/useSectors";
 
 export const MaintenanceForm = () => {
   const { formData, handleChange, resetForm } = useCreateMaintenanceForm();
   const navigate = useNavigate();
-  const { data: technicians = [], isLoading: loadingTechs } = useTechnicians();
+
+  const { data: technicians = [] } = useTechnicians();
+  const { data: sectors = [] } = useSectors();
 
   const mutation = useCreateMaintenanceRequest({
     onSuccessCallback: () => {
@@ -89,13 +92,19 @@ export const MaintenanceForm = () => {
 
       <label>
         Setor:
-        <input
-          type="number"
+        <select
           name="sectorId"
-          value={formData.sectorId}
+          value={formData.sectorId ?? ""}
           onChange={handleChange}
           required
-        />
+        >
+          <option value="">Selecione</option>
+          {sectors.map((sector) => (
+            <option key={sector.id} value={sector.id}>
+              {sector.name}
+            </option>
+          ))}
+        </select>
       </label>
 
       {formData.relatedTo === "equipment" && (

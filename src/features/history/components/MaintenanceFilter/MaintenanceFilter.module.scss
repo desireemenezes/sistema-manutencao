@@ -2,6 +2,11 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-direction: row;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 
   button {
     background-color: var(--primary-color);

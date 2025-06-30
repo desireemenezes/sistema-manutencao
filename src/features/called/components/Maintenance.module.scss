@@ -3,9 +3,10 @@
   gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 1rem;
-  align-items: center;
+  flex-direction: row;
 
   @media (max-width: 768px) {
+    flex-direction: column;
     select: {
       width: 100%;
     }

@@ -22,7 +22,7 @@ export function LoginPage() {
       <section className={styles.loginSection} aria-label="Formulário de Login">
         <div className={styles.divFlex}>
           <ArcticOpsShieldIcon size={32} color="#0052cc" />
-          <h3>Bem-vindo ao ArcticOps</h3>
+          <h1>Bem-vindo ao ArcticOps</h1>
         </div>
         <LoginForm />
       </section>

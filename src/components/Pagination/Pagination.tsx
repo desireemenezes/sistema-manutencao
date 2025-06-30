@@ -25,26 +25,36 @@ const Pagination = ({
   };
 
   return (
-    <div className={styles.pagination}>
-      <p>
+    <nav className={styles.pagination} aria-label="Navegação de paginação">
+      <p aria-live="polite" className="sr-only">
         Página {currentPage} de {totalPages}
       </p>
-      <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-        {"<"}
+      <button
+        onClick={handlePreviousPage}
+        disabled={currentPage === 1}
+        aria-label="Página anterior"
+      >
+        &lt;
       </button>
       {pageNumbers.map((number) => (
         <button
           key={number}
           onClick={() => paginate(number)}
           className={currentPage === number ? styles.active : ""}
+          aria-current={currentPage === number ? "page" : undefined}
+          aria-label={`Página ${number}`}
         >
           {number}
         </button>
       ))}
-      <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-        {">"}
+      <button
+        onClick={handleNextPage}
+        disabled={currentPage === totalPages}
+        aria-label="Próxima página"
+      >
+        &gt;
       </button>
-    </div>
+    </nav>
   );
 };
 

@@ -1,10 +1,11 @@
-// Hook para gerar os dados de gráfico que mostram a quantidade de manutenções por tipo (corretiva, preventiva).
-// Usa useMemo para memorizar o resultado do reduce e do mapeamento,
-// evitando recálculo a cada renderização, a menos que os dados de manutenção mudem.
-
 import { useMemo } from "react";
 import { useMaintenanceList } from "@/api/maintenanceApi";
 import type { MaintenanceType } from "@/types/Maintenance";
+
+const LABELS_PT_BR: Record<MaintenanceType, string> = {
+  corrective: "Corretiva",
+  preventive: "Preventiva",
+};
 
 export const useMaintenanceTypesChartData = () => {
   const { data: maintenanceRequests } = useMaintenanceList();
@@ -23,9 +24,9 @@ export const useMaintenanceTypesChartData = () => {
 
   const chartData = useMemo(() => {
     if (!maintenanceTypes) return [];
-    return Object.keys(maintenanceTypes).map((type) => ({
-      type,
-      count: maintenanceTypes[type as MaintenanceType] ?? 0,
+    return (Object.keys(maintenanceTypes) as MaintenanceType[]).map((type) => ({
+      type: LABELS_PT_BR[type],
+      count: maintenanceTypes[type] ?? 0,
     }));
   }, [maintenanceTypes]);
 

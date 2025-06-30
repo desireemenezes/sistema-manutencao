@@ -38,6 +38,26 @@ const Users = () => {
 
   if (isLoading) return <UserListSkeleton />;
 
+  // Componente interno para os botões de ação (editar, excluir)
+  const ActionButtons = ({ user }: { user: (typeof users)[0] }) => (
+    <>
+      <button
+        className={styles.editBtn}
+        onClick={() => openEdit(user)}
+        aria-label={`Editar usuário ${user.fullName}`}
+      >
+        <FaEdit />
+      </button>
+      <button
+        className={styles.deleteBtn}
+        onClick={() => openDelete(user)}
+        aria-label={`Excluir usuário ${user.fullName}`}
+      >
+        <FaTrash />
+      </button>
+    </>
+  );
+
   const renderMobileList = () => (
     <div className={styles.mobileList}>
       {users.map((user) => (
@@ -49,23 +69,11 @@ const Users = () => {
             <strong>E-mail:</strong> {user.email}
           </p>
           <p>
-            <strong>Perfil:</strong> {roleLabels[user.role] || user.role}
+            <strong>Perfil:</strong>{" "}
+            {roleLabels[user.role] ?? `Desconhecido (${user.role})`}
           </p>
           <div className={styles.mobileActions}>
-            <button
-              className={styles.editBtn}
-              onClick={() => openEdit(user)}
-              aria-label={`Editar usuário ${user.fullName}`}
-            >
-              <FaEdit />
-            </button>
-            <button
-              className={styles.deleteBtn}
-              onClick={() => openDelete(user)}
-              aria-label={`Excluir usuário ${user.fullName}`}
-            >
-              <FaTrash />
-            </button>
+            <ActionButtons user={user} />
           </div>
         </div>
       ))}
@@ -83,17 +91,18 @@ const Users = () => {
           + Novo Usuário
         </button>
       </GenericFilterBar>
+
       <div className={styles.content_users}>
         {users.length === 0 && <p>Nenhum usuário encontrado</p>}
 
         {/* Tabela para desktop */}
-        <table className={styles.desktopTable}>
+        <table className={styles.desktopTable} aria-label="Lista de usuários">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th>Perfil</th>
-              <th>Ações</th>
+              <th scope="col">Nome</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">Perfil</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -101,22 +110,11 @@ const Users = () => {
               <tr key={user.id}>
                 <td>{user.fullName}</td>
                 <td>{user.email}</td>
-                <td>{roleLabels[user.role] || user.role}</td>
+                <td>
+                  {roleLabels[user.role] ?? `Desconhecido (${user.role})`}
+                </td>
                 <td className={styles.actions}>
-                  <button
-                    className={styles.editBtn}
-                    onClick={() => openEdit(user)}
-                    aria-label={`Editar usuário ${user.fullName}`}
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    className={styles.deleteBtn}
-                    onClick={() => openDelete(user)}
-                    aria-label={`Excluir usuário ${user.fullName}`}
-                  >
-                    <FaTrash />
-                  </button>
+                  <ActionButtons user={user} />
                 </td>
               </tr>
             ))}
@@ -140,12 +138,14 @@ const Users = () => {
           onCancel={closeDelete}
         />
 
-        <EditUserModal
-          isOpen={isEditOpen}
-          onClose={closeEdit}
-          user={selectedUser}
-          onSave={confirmEdit}
-        />
+        {isEditOpen && selectedUser && (
+          <EditUserModal
+            isOpen={isEditOpen}
+            onClose={closeEdit}
+            user={selectedUser}
+            onSave={confirmEdit}
+          />
+        )}
       </div>
     </>
   );

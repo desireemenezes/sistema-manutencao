@@ -1,5 +1,5 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
-import styles from "./SectorList.module.scss"; // importe o módulo CSS
+import styles from "./SectorList.module.scss";
 import useSectors from "../store/useSectors";
 import { useSectorActions } from "../store/useSectorActions";
 import type { Sector } from "../types/Sector";
@@ -38,11 +38,14 @@ const SectorList = () => {
 
   if (isLoading) return <SectorListSkeleton />;
 
-  // Função para renderizar lista mobile
+  const renderEmptyMessage = (
+    <p className={styles.emptyMessage}>Nenhum setor encontrado.</p>
+  );
+
   const renderMobileList = () => (
-    <div className={styles.mobileList}>
+    <div className={styles.mobileList} role="list">
       {sectors.map((sector: Sector) => (
-        <div key={sector.id} className={styles.mobileListItem}>
+        <div key={sector.id} className={styles.mobileListItem} role="listitem">
           <p>
             <strong>Nome:</strong> {sector.name}
           </p>
@@ -55,14 +58,14 @@ const SectorList = () => {
               onClick={() => openEdit(sector)}
               aria-label={`Editar setor ${sector.name}`}
             >
-              <FaEdit />
+              <FaEdit aria-hidden="true" />
             </button>
             <button
               className={styles.deleteBtn}
               onClick={() => openDelete(sector)}
               aria-label={`Excluir setor ${sector.name}`}
             >
-              <FaTrash />
+              <FaTrash aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -76,66 +79,65 @@ const SectorList = () => {
         value={filter}
         onChange={setFilter}
         placeholder="Filtrar setores"
-      ></GenericFilterBar>
+        aria-label="Filtro de setores"
+      />
+
       <div className={styles.content_sectors}>
-        {/* Criar setor */}
         <CreateSectorForm onCreate={createSector} />
 
-        {/* Tabela desktop */}
-        <table className={styles.desktopTable}>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Categoria</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sectors.length === 0 && (
-              <tr>
-                <td colSpan={3} style={{ textAlign: "center" }}>
-                  Nenhum setor encontrado.
-                </td>
-              </tr>
-            )}
-            {sectors.map((sector: Sector) => (
-              <tr key={sector.id}>
-                <td>{sector.name}</td>
-                <td>{sector.category || "-"}</td>
-                <td className={styles.actions}>
-                  <button
-                    className={styles.editBtn}
-                    onClick={() => openEdit(sector)}
-                    aria-label={`Editar setor ${sector.name}`}
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    className={styles.deleteBtn}
-                    onClick={() => openDelete(sector)}
-                    aria-label={`Excluir setor ${sector.name}`}
-                  >
-                    <FaTrash />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {sectors.length === 0 ? (
+          renderEmptyMessage
+        ) : (
+          <>
+            {/* Tabela Desktop */}
+            <table
+              className={styles.desktopTable}
+              aria-label="Lista de setores"
+            >
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Categoria</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sectors.map((sector: Sector) => (
+                  <tr key={sector.id}>
+                    <td>{sector.name}</td>
+                    <td>{sector.category || "-"}</td>
+                    <td className={styles.actions}>
+                      <button
+                        className={styles.editBtn}
+                        onClick={() => openEdit(sector)}
+                        aria-label={`Editar setor ${sector.name}`}
+                      >
+                        <FaEdit aria-hidden="true" />
+                      </button>
+                      <button
+                        className={styles.deleteBtn}
+                        onClick={() => openDelete(sector)}
+                        aria-label={`Excluir setor ${sector.name}`}
+                      >
+                        <FaTrash aria-hidden="true" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
-        {/* Lista mobile */}
-        {renderMobileList()}
+            {renderMobileList()}
 
-        {/* Paginação */}
+            <Pagination
+              currentPage={currentPage}
+              itemsPerPage={sectorsPerPage}
+              totalItems={totalSectors}
+              paginate={paginate}
+            />
+          </>
+        )}
 
-        <Pagination
-          currentPage={currentPage}
-          itemsPerPage={sectorsPerPage}
-          totalItems={totalSectors}
-          paginate={paginate}
-        />
-
-        {/* Modal de edição */}
         {isEditOpen && selectedSector && (
           <EditSectorModal
             sector={selectedSector}
@@ -144,7 +146,6 @@ const SectorList = () => {
           />
         )}
 
-        {/* Modal de exclusão */}
         {isDeleteOpen && selectedSector && (
           <DeleteSectorModal
             isOpen={isDeleteOpen}
