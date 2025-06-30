@@ -1,9 +1,10 @@
 import { useMaintenanceStats } from "../hooks/useMaintenanceStats";
 import { useMaintenanceTypesChartData } from "../hooks/useMaintenanceTypesChartData";
 import { useAgentRequestsChartData } from "../hooks/useAgentRequestsChartData";
-import { BarChartComponent } from "./BarChartComponent";
+
 import styles from "./ContentDash.module.scss";
 import { Skeleton } from "./Skeleton/Skeleton";
+import { BarChartComponent } from "./BarChartComponent/BarChartComponent";
 
 const COLORS = ["#0052cc", "#43a047"];
 

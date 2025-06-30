@@ -1,6 +1,6 @@
 import Spinner from "@/components/Spinner/Spinner";
 import { useLogin } from "../hooks/useLogin";
-import styles from "../styles/login.module.scss";
+import styles from "./LoginForm.module.scss";
 
 export function LoginForm() {
   const {

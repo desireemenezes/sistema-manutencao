@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginForm } from "../components/LoginForm";
-import styles from "../styles/login.module.scss";
+import styles from "./LoginPage.module.scss";
 import { ArcticOpsShieldIcon } from "@/components/icons/SnowflakeToolIcon";
 import { getRedirectPathByRole } from "../utils/redirectByRole";
 import { useAuth } from "@/hooks/useAuth";

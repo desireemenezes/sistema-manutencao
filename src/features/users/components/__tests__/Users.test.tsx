@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Users from "../UserList/UserList";
+import Users from "../UserList";
 
 // Mock dos hooks utilizados no componente
 jest.mock("../../hooks/useUsers", () => ({

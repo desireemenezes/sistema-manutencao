@@ -11,11 +11,11 @@ Sistema desenvolvido como parte de um desafio técnico para simular o gerenciame
 
 ### Dashboard com indicadores e gráficos
 
-![Dashboard]
+![Dashboard](image-1.png)
 
-### Formulário de abertura de chamado
+### Listagem de chamados
 
-![Formulário]
+![Listagem-chamados](image-2.png)
 
 ## 🚀 Tecnologias
 
@@ -113,7 +113,25 @@ Configure a URL da API mockada:
 
 ```
 VITE_API_URL=https://vercel-api-desireemenezes-projects.vercel.app/
+
 ```
+
+## 📈 Cobertura de Testes
+
+Este projeto utiliza o Jest com geração de relatório de cobertura.
+
+> ℹ️ **Observação:** a cobertura ainda não está 100%, pois o foco inicial foi validar as funcionalidades principais. O aumento da cobertura está planejado como melhoria contínua.
+
+### Resultado atual:
+
+| Tipo       | Cobertura |
+| ---------- | --------- |
+| Statements | 40.95%    |
+| Branches   | 29.92%    |
+| Functions  | 28%       |
+| Lines      | 42.2%     |
+
+![alt text](image.png)
 
 ## 👩‍💻 Autoria
 

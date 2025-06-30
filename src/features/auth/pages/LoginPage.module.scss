@@ -1,0 +1,28 @@
+.pageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0;
+  background-color: var(--background-color);
+
+  @media (max-width: 900px) {
+    padding-top: 2rem;
+    height: auto;
+  }
+  .loginSection {
+    width: 400px;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 12px;
+    background-color: var(--card-bg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .divFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+}

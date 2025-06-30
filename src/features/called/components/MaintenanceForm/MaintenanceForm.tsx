@@ -137,16 +137,20 @@ export const MaintenanceForm = () => {
       </label>
 
       <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-        <button type="submit" disabled={mutation.isLoading}>
-          {mutation.isLoading ? "Salvando..." : "Criar Chamado"}
-        </button>
-
         <button
+          className={styles.cancel}
           type="button"
           onClick={() => navigate("/chamados")}
           disabled={mutation.isLoading}
         >
           Voltar
+        </button>
+        <button
+          type="submit"
+          disabled={mutation.isLoading}
+          className={styles.save}
+        >
+          {mutation.isLoading ? "Salvando..." : "Criar Chamado"}
         </button>
       </div>
     </form>

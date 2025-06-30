@@ -117,6 +117,7 @@ export function MaintenanceAgentEditModal({
                   />
                   {partsUsed.length > 1 && (
                     <button
+                      className={styles.remove}
                       type="button"
                       onClick={() => removePart(i)}
                       aria-label={`Remover peça ${i + 1}`}

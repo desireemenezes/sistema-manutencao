@@ -1,14 +1,15 @@
 import styles from "./UserList.module.scss";
-import useUsers from "../../hooks/useUsers";
-import { useUserActions } from "../../hooks/useUserActions";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import ConfirmModal from "../ConfirmModal/ConfirmModal";
-import EditUserModal from "../EditModal/EditUserModal";
-import UserListSkeleton from "../Skeleton/UserListSkeleton";
-import { useUserStore } from "../../store/userStore";
+
 import { useNavigate } from "react-router-dom";
 import { GenericFilterBar } from "@/components/FilterBar/GenericFilterBar";
 import Pagination from "@/components/Pagination/Pagination";
+import useUsers from "../hooks/useUsers";
+import { useUserActions } from "../hooks/useUserActions";
+import { useUserStore } from "../store/userStore";
+import UserListSkeleton from "./Skeleton/UserListSkeleton";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import ConfirmModal from "./ConfirmModal/ConfirmModal";
+import EditUserModal from "./EditModal/EditUserModal";
 
 // Mapeamento para nomes amigáveis dos perfis
 const roleLabels: Record<string, string> = {
