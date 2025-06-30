@@ -1,24 +1,32 @@
+import { FiSearch } from "react-icons/fi";
 import styles from "./GenericFilterBar.module.scss";
 
 interface GenericFilterBarProps {
   value: string;
   onChange: (value: string) => void;
+  onSubmit?: () => void; // opcional, se quiser tratar o enter
   placeholder?: string;
   children?: React.ReactNode;
-  id?: string; // para conectar label se quiser adicionar depois
-  ariaLabel?: string; // para acessibilidade no input
+  id?: string;
+  ariaLabel?: string;
 }
 
 export const GenericFilterBar = ({
   value,
   onChange,
+  onSubmit,
   placeholder = "Filtrar...",
   children,
   id,
   ariaLabel = "Filtro de busca",
 }: GenericFilterBarProps) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit?.();
+  };
+
   return (
-    <div className={styles.filtersContainer}>
+    <form className={styles.filtersContainer} onSubmit={handleSubmit}>
       <input
         type="text"
         id={id}
@@ -28,6 +36,6 @@ export const GenericFilterBar = ({
         aria-label={ariaLabel}
       />
       {children}
-    </div>
+    </form>
   );
 };

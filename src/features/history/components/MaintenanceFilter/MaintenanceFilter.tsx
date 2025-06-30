@@ -18,9 +18,6 @@ export const MaintenanceFilter = ({ onExport }: MaintenanceFilterProps) => {
       role="search"
       aria-label="Filtro de manutenções"
     >
-      <label htmlFor="maintenance-filter" className="sr-only">
-        Filtrar manutenções
-      </label>
       <input
         id="maintenance-filter"
         type="text"
