@@ -1,5 +1,12 @@
 # 🧊 ArticOps — Sistema de Manutenção para Bases na Antártica
 
+![Vite](https://img.shields.io/badge/Vite-4.x-646CFF?logo=vite&logoColor=white)
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.x-3178C6?logo=typescript)
+![Jest](https://img.shields.io/badge/Tested_with-Jest-C21325?logo=jest)
+![Tests](https://img.shields.io/badge/tests-8%20passed%20(13%20total)-brightgreen?style=flat-square)
+
+
 Sistema desenvolvido como parte de um desafio técnico para simular o gerenciamento de manutenções em bases de pesquisa na Antártica. O projeto utiliza boas práticas de Clean Architecture, controle de acesso por perfil de usuário, e recursos modernos de front-end.
 
 ## 📍 Acesse o Projeto
@@ -11,11 +18,12 @@ Sistema desenvolvido como parte de um desafio técnico para simular o gerenciame
 
 ### Dashboard com indicadores e gráficos
 
-![Dashboard](image-1.png)
+![dashboard](https://github.com/user-attachments/assets/f0c336e8-ccdd-4fbe-a330-df9a6cede50c)
 
 ### Listagem de chamados
 
-![Listagem-chamados](image-2.png)
+![listagem-chamados](https://github.com/user-attachments/assets/71459ae2-a76d-4852-af2b-e32533556478)
+
 
 ## 🚀 Tecnologias
 
@@ -57,32 +65,6 @@ src/
 ├── App.tsx            # Componente principal da aplicação
 └── main.tsx           # Ponto de entrada da aplicação (ReactDOM)
 ```
-
-## 📋 Fluxo de Desenvolvimento e Entrega
-
-Este projeto segue um fluxo organizado para garantir qualidade, rastreabilidade e entregas contínuas:
-
-- O desenvolvimento está dividido em **Issues temáticas**, cada uma focada em uma funcionalidade ou etapa do sistema.
-- Para cada Issue, é criada uma **Branch específica** e submetido um **Pull Request (PR)** individual.
-- Após aprovação, a versão é publicada automaticamente via **deploy no Netlify**.
-- A branch principal (`main`) sempre reflete a versão estável e publicada do sistema.
-
-## 🧠 Decisões Técnicas
-
-- **Clean Architecture** com separação por `features/`
-- **Zustand** para gerenciamento de estado reativo e global
-- **React Query** para controle de cache e requisições assíncronas
-- **Sass** para modularização de estilos com temas e variáveis
-- **Testes unitários com Jest**
-- **Modularização por responsabilidade** em todos os domínios da aplicação
-
-## ⚙️ Funcionalidades
-
-- Autenticação com controle de sessão
-- Criação e edição de chamados (corretivos e preventivos)
-- Dashboard com indicadores e gráficos
-- Filtros dinâmicos por tipo, status, agente, setor
-- CRUD completo de usuários, setores e equipamentos
 
 ## 📦 Instalação
 
@@ -131,9 +113,37 @@ Este projeto utiliza o Jest com geração de relatório de cobertura.
 | Functions  | 28%       |
 | Lines      | 42.2%     |
 
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/a2af7523-ab8b-4c46-bef8-8fb9bb836aed)
+
+
+
+## 📋 Fluxo de Desenvolvimento e Entrega
+
+Este projeto segue um fluxo organizado para garantir qualidade, rastreabilidade e entregas contínuas:
+
+- O desenvolvimento está dividido em **Issues temáticas**, cada uma focada em uma funcionalidade ou etapa do sistema.
+- Para cada Issue, é criada uma **Branch específica** e submetido um **Pull Request (PR)** individual.
+- Após aprovação, a versão é publicada automaticamente via **deploy no Netlify**.
+- A branch principal (`main`) sempre reflete a versão estável e publicada do sistema.
+
+## 🧠 Decisões Técnicas
+
+- **Clean Architecture** com separação por `features/`.
+- **Zustand** para gerenciamento de estado reativo e global.
+- **React Query** para controle de cache e requisições assíncronas.
+- **Sass** para modularização de estilos com temas e variáveis.
+- **Testes unitários com Jest**.
+- **Modularização por responsabilidade** em todos os domínios da aplicação.
+
+## ⚙️ Funcionalidades
+
+- Autenticação com controle de sessão.
+- Criação e edição de chamados (corretivos e preventivos).
+- Dashboard com indicadores e gráficos.
+- Filtros dinâmicos por tipo, status, agente, setor.
+- CRUD completo de usuários, setores e equipamentos.
 
 ## 👩‍💻 Autoria
 
-Desenvolvido por **Desirée Menezes**  
-[LinkedIn](https://www.linkedin.com/in/desir%C3%A9e-menezes-b93334341/)
+Desenvolvido por: 
+**Desirée Menezes**  
