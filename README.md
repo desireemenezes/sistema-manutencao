@@ -184,5 +184,12 @@ Este projeto utiliza o Jest com geração de relatório de cobertura.
 
 ## 👩‍💻 Autoria
 
-Desenvolvido por:  
 **Desirée Menezes**
+
+- GitHub: [github.com/desireemenezes](https://github.com/desireemenezes)  
+- LinkedIn: [linkedin.com/in/desireemenezes](https://www.linkedin.com/in/desireemenezes)  
+- E-mail: deeemenezes@gmail.com
+
+## ✨ Obrigada por visitar o projeto!  
+Sinta-se à vontade para entrar em contato para feedbacks, dúvidas ou oportunidades.
+
