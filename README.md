@@ -6,7 +6,6 @@
 Sistema desenvolvido como parte de um desafio técnico para simular o gerenciamento de manutenções em bases de pesquisa na Antártica. O projeto utiliza boas práticas de Clean Architecture, controle de acesso por perfil de usuário, e recursos modernos de front-end.
 
 
-
 ## 🚀 Tecnologias
 
 - [React 18](https://reactjs.org/)  
@@ -20,6 +19,11 @@ Sistema desenvolvido como parte de um desafio técnico para simular o gerenciame
 - [React Toastify](https://fkhadra.github.io/react-toastify/introduction)  
 - [Jest](https://jestjs.io/)
 
+## 🔧 Backend Simulado
+
+A API utilizada é uma simulação serverless hospedada na Vercel, que permite persistência temporária dos dados para fins de teste e desenvolvimento.  
+Não há um banco de dados real por trás da API, e os dados podem ser resetados a qualquer momento.  
+Essa solução foi adotada para simplificar o setup do projeto e focar no desenvolvimento frontend e na arquitetura da aplicação.
 
 
 ## 🧱 Arquitetura
@@ -115,6 +119,16 @@ Essas melhorias estão planejadas para versões futuras visando tornar o sistema
 
 - 🌐 [Deploy da aplicação (Netlify)](https://articops.netlify.app)  
 - 🔌 [Mock API JSON Server (Vercel)](https://vercel-api-desireemenezes-projects.vercel.app)
+
+- ## 🔐 Credenciais para Login
+
+| Usuário        | Perfil        | Email               | Senha   |
+| -------------- | ------------- | ------------------- | ------- |
+| Administrador  | Gestor        | manager@station.com | 123456  |
+| Carlos         | Agente        | carlos@station.com  | 123456  |
+| Alice          | Pesquisadora  | alice@station.com   | 123456  |
+
+> Use essas credenciais para acessar o sistema conforme o perfil de cada usuário.
 
 
 ## 📦 Instalação
