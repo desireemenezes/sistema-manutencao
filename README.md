@@ -1,10 +1,21 @@
-# 🛠️ Sistema de Manutenção (ArticOps)
+# 🧊 ArticOps — Sistema de Manutenção para Bases na Antártica
 
-Sistema web para gerenciamento de manutenções em bases de pesquisa na Antártica.
-Permite a criação, execução e histórico de chamados de manutenção corretiva e preventiva, com acesso controlado por perfis de usuário.
+Sistema desenvolvido como parte de um desafio técnico para simular o gerenciamento de manutenções em bases de pesquisa na Antártica. O projeto utiliza boas práticas de Clean Architecture, controle de acesso por perfil de usuário, e recursos modernos de front-end.
 
-**Acesse a versão em produção:**  
-🔗 [https://articops.netlify.app](https://articops.netlify.app)
+## 📍 Acesse o Projeto
+
+- 🌐 [Deploy da aplicação (Netlify)](https://articops.netlify.app)
+- 🔌 [Mock API JSON Server (Vercel)](https://vercel-api-desireemenezes-projects.vercel.app)
+
+## 🖼️ Preview da Interface
+
+### Dashboard com indicadores e gráficos
+
+![Dashboard](image-1.png)
+
+### Listagem de chamados
+
+![Listagem-chamados](image-2.png)
 
 ## 🚀 Tecnologias
 
@@ -12,31 +23,76 @@ Permite a criação, execução e histórico de chamados de manutenção correti
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/)
 - [Sass](https://sass-lang.com/)
-- [React Query](https://react-query.tanstack.com/)
-- [Zustand](https://zustand-demo.pmnd.rs/) / Context API
+- [React Query](https://tanstack.com/query/latest)
+- [Zustand](https://zustand-demo.pmnd.rs/)
 - [React Router DOM](https://reactrouter.com/)
 - [React Icons](https://react-icons.github.io/react-icons/)
-- [React Toastify](https://fkhadra.github.io/react-toastify/)
-- [Jest](https://jestjs.io/) (testes unitários)
-- Arquitetura: Clean Architecture + Modularização por Features
-- Mock API: [`json-server`] hospedado em [vercel-api-desireemenezes-projects.vercel.app/](https://vercel-api-desireemenezes-projects.vercel.app/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
+- [Jest](https://jestjs.io/)
 
-![image](https://github.com/user-attachments/assets/392e729d-744b-4e1d-acbe-b5e1c6da78c8)
+## 🧱 Arquitetura
 
----
+Organização baseada em Clean Architecture + modularização por features:
+
+```
+src/
+├── api/               # Configurações e instâncias de APIs globais
+├── components/        # Componentes reutilizáveis e genéricos
+├── constants/         # Constantes globais (ex: enums, valores fixos)
+├── hooks/             # Hooks customizados reutilizáveis (uso global)
+├── lib/               # Bibliotecas utilitárias, como client do React Query
+├── routes/            # Definição das rotas e proteção de rotas
+├── store/             # Zustand ou Context API para estado global
+├── styles/            # Estilos globais, temas, variáveis Sass
+├── types/             # Tipagens globais e compartilhadas
+├── utils/             # Funções utilitárias reutilizáveis (ex: formatações)
+├── features/
+│   └── users/         # Feature isolada para usuários
+│       ├── api/       # Funções de requisição específicas de usuários
+│       ├── components/# Componentes específicos da feature de usuários
+│       ├── hooks/     # Hooks específicos da feature de usuários
+│       ├── pages/     # Páginas de usuários (ex: lista, detalhe)
+│       ├── store/     # Zustand/context específico de usuários
+│       ├── types/     # Tipagens específicas da feature
+├── App.tsx            # Componente principal da aplicação
+└── main.tsx           # Ponto de entrada da aplicação (ReactDOM)
+```
+
+## 📋 Fluxo de Desenvolvimento e Entrega
+
+Este projeto segue um fluxo organizado para garantir qualidade, rastreabilidade e entregas contínuas:
+
+- O desenvolvimento está dividido em **Issues temáticas**, cada uma focada em uma funcionalidade ou etapa do sistema.
+- Para cada Issue, é criada uma **Branch específica** e submetido um **Pull Request (PR)** individual.
+- Após aprovação, a versão é publicada automaticamente via **deploy no Netlify**.
+- A branch principal (`main`) sempre reflete a versão estável e publicada do sistema.
+
+## 🧠 Decisões Técnicas
+
+- **Clean Architecture** com separação por `features/`
+- **Zustand** para gerenciamento de estado reativo e global
+- **React Query** para controle de cache e requisições assíncronas
+- **Sass** para modularização de estilos com temas e variáveis
+- **Testes unitários com Jest**
+- **Modularização por responsabilidade** em todos os domínios da aplicação
+
+## ⚙️ Funcionalidades
+
+- Autenticação com controle de sessão
+- Criação e edição de chamados (corretivos e preventivos)
+- Dashboard com indicadores e gráficos
+- Filtros dinâmicos por tipo, status, agente, setor
+- CRUD completo de usuários, setores e equipamentos
 
 ## 📦 Instalação
 
 ```bash
-# Clone o projeto
 git clone https://github.com/desireemenezes/sistema-manutencao.git
-
-# Acesse a pasta
 cd sistema-manutencao
-
-# Instale as dependências
 npm install
+```
 
+### Scripts
 
 | Comando           | Descrição                                |
 | ----------------- | ---------------------------------------- |
@@ -44,67 +100,40 @@ npm install
 | `npm run build`   | Gera build de produção otimizado         |
 | `npm run preview` | Pré-visualiza o build                    |
 | `npm run test`    | Executa testes unitários com Jest        |
-| `npm run lint`    | Executa linting com ESLint               |
-
-
-🧱 Estrutura de Pastas (resumo)
-src/
-├── assets/            # Imagens e arquivos estáticos
-├── components/        # Componentes reutilizáveis e hooks customizados
-├── features/          # Funcionalidades isoladas (modularizadas)
-│   ├── auth/          # Exemplo: autenticação e login
-│   ├── dashboard/     # Exemplo: dashboard do sistema
-│   └── ...            # Outras features
-├── lib/               # Clientes API (React Query)
-├── routes/            # Definições de rotas
-├── store/             # Estado global com Zustand ou Context API
-├── styles/            # Estilos globais, variáveis e temas
-├── App.tsx            # Componente principal da aplicação
-└── main.tsx           # Ponto de entrada do React
-
-```
 
 ## 🔐 Variáveis de Ambiente
 
-Este projeto utiliza variáveis de ambiente para configuração da API.
-Crie um arquivo .env na raiz do projeto:
+Crie o arquivo `.env`:
 
-```
-
+```bash
 cp .env.example .env
-VITE_API_URL=vercel-api-desireemenezes-projects.vercel.app/
+```
+
+Configure a URL da API mockada:
+
+```
+VITE_API_URL=https://vercel-api-desireemenezes-projects.vercel.app/
 
 ```
 
-## 📋 Fluxo de Desenvolvimento e Entrega
+## 📈 Cobertura de Testes
 
-Este projeto segue um fluxo organizado para garantir qualidade, rastreabilidade e entregas contínuas:
+Este projeto utiliza o Jest com geração de relatório de cobertura.
 
-O desenvolvimento está dividido em Issues temáticas, cada uma focada em uma funcionalidade ou etapa do sistema.
+> ℹ️ **Observação:** a cobertura ainda não está 100%, pois o foco inicial foi validar as funcionalidades principais. O aumento da cobertura está planejado como melhoria contínua.
 
-Para cada Issue, deve ser criada uma Branch específica e submetido um Pull Request (PR) individual.
+### Resultado atual:
 
-Após a aprovação do PR, a versão correspondente é automaticamente publicada via deploy no Netlify.
+| Tipo       | Cobertura |
+| ---------- | --------- |
+| Statements | 40.95%    |
+| Branches   | 29.92%    |
+| Functions  | 28%       |
+| Lines      | 42.2%     |
 
-Este fluxo permite acompanhamento incremental do progresso e testes em ambiente real.
+![alt text](image.png)
 
-A branch principal (main ou master) sempre reflete a versão estável e publicada do sistema.
+## 👩‍💻 Autoria
 
-## 🧠 Decisões técnicas
-
-Clean Architecture com features/ isoladas
-
-State Management com Zustand + Context API (quando necessário)
-
-React Query para gerenciamento de dados assíncronos
-
-Sass com estrutura escalável e utilitários globais
-
-Testes unitários com Jest
-
-Modularização por responsabilidade
-
----
-
-🧑‍💻
-Desenvolvido por Desirée Menezes
+Desenvolvido por **Desirée Menezes**  
+[LinkedIn](https://www.linkedin.com/in/desir%C3%A9e-menezes-b93334341/)

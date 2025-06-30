@@ -4,11 +4,14 @@ import { useCreateMaintenanceForm } from "../../hooks/useCreateMaintenanceForm";
 import { useCreateMaintenanceRequest } from "../../hooks/useCreateMaintenanceRequest";
 import { toast } from "react-toastify";
 import { useTechnicians } from "@/api/useTechnicians";
+import { useSectors } from "@/features/sectors/hooks/useSectors";
 
 export const MaintenanceForm = () => {
   const { formData, handleChange, resetForm } = useCreateMaintenanceForm();
   const navigate = useNavigate();
-  const { data: technicians = [], isLoading: loadingTechs } = useTechnicians();
+
+  const { data: technicians = [] } = useTechnicians();
+  const { data: sectors = [] } = useSectors();
 
   const mutation = useCreateMaintenanceRequest({
     onSuccessCallback: () => {
@@ -89,13 +92,19 @@ export const MaintenanceForm = () => {
 
       <label>
         Setor:
-        <input
-          type="number"
+        <select
           name="sectorId"
-          value={formData.sectorId}
+          value={formData.sectorId ?? ""}
           onChange={handleChange}
           required
-        />
+        >
+          <option value="">Selecione</option>
+          {sectors.map((sector) => (
+            <option key={sector.id} value={sector.id}>
+              {sector.name}
+            </option>
+          ))}
+        </select>
       </label>
 
       {formData.relatedTo === "equipment" && (
@@ -128,16 +137,20 @@ export const MaintenanceForm = () => {
       </label>
 
       <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-        <button type="submit" disabled={mutation.isLoading}>
-          {mutation.isLoading ? "Salvando..." : "Criar Chamado"}
-        </button>
-
         <button
+          className={styles.cancel}
           type="button"
           onClick={() => navigate("/chamados")}
           disabled={mutation.isLoading}
         >
           Voltar
+        </button>
+        <button
+          type="submit"
+          disabled={mutation.isLoading}
+          className={styles.save}
+        >
+          {mutation.isLoading ? "Salvando..." : "Criar Chamado"}
         </button>
       </div>
     </form>

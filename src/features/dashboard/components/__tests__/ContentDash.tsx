@@ -1,48 +1,66 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ContentDash } from "../ContentDash";
 
-const queryClient = new QueryClient();
+// Mock do ResizeObserver para evitar erro no jsdom
+global.ResizeObserver = class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
 
-jest.mock("@/api/maintenanceApi", () => ({
-  useMaintenanceList: () => ({
-    data: [
-      { id: 1, title: "Chamado 1", status: "aberto", assignedTo: 1 },
-      { id: 2, title: "Chamado 2", status: "em andamento", assignedTo: 1 },
-      { id: 3, title: "Chamado 3", status: "concluido", assignedTo: 2 },
-    ],
-    isLoading: false,
-  }),
+// 🧪 Mock do Recharts: evita warning de width/height no teste
+jest.mock("recharts", () => {
+  const original = jest.requireActual("recharts");
+  return {
+    ...original,
+    ResponsiveContainer: ({ children }: any) => <div>{children}</div>,
+  };
+});
+
+// 🧪 Mock dos hooks
+jest.mock("../../hooks/useMaintenanceStats", () => ({
   useMaintenanceStats: () => ({
     openRequests: [{ id: 1 }],
-    inProgressRequests: [{ id: 2 }],
-    completedRequests: [{ id: 3 }],
+    inProgressRequests: [{ id: 2 }, { id: 3 }],
+    completedRequests: [{ id: 4 }],
     isLoading: false,
   }),
 }));
 
-jest.mock("@/api/useTechnicians", () => ({
-  useTechnicians: () => ({
-    data: [
-      { id: 1, fullName: "Técnico 1" },
-      { id: 2, fullName: "Técnico 2" },
-    ],
-    isLoading: false,
-  }),
+jest.mock("../../hooks/useMaintenanceTypesChartData", () => ({
+  useMaintenanceTypesChartData: () => [
+    { type: "Preventiva", count: 3 },
+    { type: "Corretiva", count: 5 },
+  ],
 }));
+
+jest.mock("../../hooks/useAgentRequestsChartData", () => ({
+  useAgentRequestsChartData: () => [
+    { agent: "João", count: 4 },
+    { agent: "Maria", count: 2 },
+  ],
+}));
+
+const queryClient = new QueryClient();
 
 describe("ContentDash", () => {
-  it("deve renderizar a tela de dashboard", async () => {
+  it("deve renderizar os contadores e gráficos corretamente", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <ContentDash />
       </QueryClientProvider>
     );
 
-    await waitFor(() => screen.getByText("Tipos de Manutenção"));
-    await waitFor(() => screen.getByText("Agentes"));
+    expect(await screen.findByText("Abertos: 1")).toBeInTheDocument();
+    expect(await screen.findByText("Em andamento: 2")).toBeInTheDocument();
+    expect(await screen.findByText("Concluídos: 1")).toBeInTheDocument();
 
-    expect(screen.getByText("Tipos de Manutenção")).toBeInTheDocument();
-    expect(screen.getByText("Agentes")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("Gráfico de Tipos de Manutenção")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("Gráfico de Chamados por Agentes")
+    ).toBeInTheDocument();
   });
 });

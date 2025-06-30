@@ -9,29 +9,27 @@ interface EditUserModalProps {
   onSave: (updatedUser: User) => void;
 }
 
-// Lista de perfis válidos
 const userRoles: UserRole[] = ["manager", "technician", "researcher"];
 
-// Mapeamento dos roles para labels em português
 const roleLabels: Record<UserRole, string> = {
   manager: "Administrador",
   technician: "Técnico",
   researcher: "Pesquisador",
 };
 
-function EditUserModal(props: EditUserModalProps) {
-  const { isOpen, onClose, user, onSave } = props;
-
+function EditUserModal({ isOpen, onClose, user, onSave }: EditUserModalProps) {
   const [formData, setFormData] = useState<User>({
     id: 0,
     fullName: "",
     email: "",
-    role: "manager", // valor padrão
+    role: "manager",
   });
 
   useEffect(() => {
-    if (user) setFormData(user);
-  }, [user]);
+    if (isOpen && user) {
+      setFormData(user);
+    }
+  }, [user, isOpen]);
 
   if (!isOpen) return null;
 
@@ -41,57 +39,54 @@ function EditUserModal(props: EditUserModalProps) {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    onSave({ ...formData, id: Number(formData.id) });
+    onSave(formData);
   }
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <h2>Editar Usuário</h2>
+        <h3>Editar Usuário</h3>
         <form onSubmit={handleSubmit}>
-          <label>
-            Nome:
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-            />
-          </label>
+          <label htmlFor="fullName">Nome:</label>
+          <input
+            id="fullName"
+            type="text"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
+          />
 
-          <label>
-            E-mail:
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
+          <label htmlFor="email">E-mail:</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-          <label>
-            Perfil:
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              required
-            >
-              {userRoles.map((role) => (
-                <option key={role} value={role}>
-                  {roleLabels[role]}
-                </option>
-              ))}
-            </select>
-          </label>
+          <label htmlFor="role">Perfil:</label>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+          >
+            {userRoles.map((role) => (
+              <option key={role} value={role}>
+                {roleLabels[role]}
+              </option>
+            ))}
+          </select>
 
           <div className={styles.actions}>
             <button
               type="button"
               className={styles.cancel}
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault();
                 e.stopPropagation();
                 onClose();
@@ -99,7 +94,11 @@ function EditUserModal(props: EditUserModalProps) {
             >
               Cancelar
             </button>
-            <button type="submit" className={styles.confirm}>
+            <button
+              type="submit"
+              className={styles.confirm}
+              disabled={!formData.fullName || !formData.email}
+            >
               Salvar
             </button>
           </div>

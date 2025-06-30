@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginForm } from "../components/LoginForm";
-import styles from "../styles/login.module.scss";
+import styles from "./LoginPage.module.scss";
 import { ArcticOpsShieldIcon } from "@/components/icons/SnowflakeToolIcon";
 import { getRedirectPathByRole } from "../utils/redirectByRole";
 import { useAuth } from "@/hooks/useAuth";
@@ -22,7 +22,7 @@ export function LoginPage() {
       <section className={styles.loginSection} aria-label="Formulário de Login">
         <div className={styles.divFlex}>
           <ArcticOpsShieldIcon size={32} color="#0052cc" />
-          <h3>Bem-vindo ao ArcticOps</h3>
+          <h1>Bem-vindo ao ArcticOps</h1>
         </div>
         <LoginForm />
       </section>

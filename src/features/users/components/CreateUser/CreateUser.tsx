@@ -11,7 +11,11 @@ const CreateUser = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await handleSubmit(() => navigate("/usuarios")); // redireciona ao salvar
+    try {
+      await handleSubmit(() => navigate("/usuarios"));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

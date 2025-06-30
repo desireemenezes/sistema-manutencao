@@ -1,37 +1,35 @@
 .filtersContainer {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
   margin-bottom: 1rem;
-  align-items: center;
+  flex-direction: row;
 
-  input {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.375rem;
-    font-size: 0.9rem;
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    @media (max-width: 768px) {
-      width: 100%;
-    }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   button {
-    padding: 0.5rem 1rem;
     background-color: var(--primary-color);
-    color: var(--button-text, #fff);
+    color: white;
     border: none;
-    border-radius: 0.375rem;
+    border-radius: 6px;
+    padding: 8px 16px;
     cursor: pointer;
     font-weight: 500;
-    transition: background-color 0.2s;
-    @media (max-width: 768px) {
-      width: 100%;
-    }
+    display: flex;
 
     &:hover {
-      background-color: var(--primary-dark);
+      opacity: 0.9;
     }
+  }
+
+  input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: var(--card-bg);
   }
 }

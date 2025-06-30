@@ -1,5 +1,5 @@
 import { Section } from "@/components/Section/Section";
-import UserList from "../components/UserList/UserList";
+import UserList from "../components/UserList";
 
 export function Users() {
   return (

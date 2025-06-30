@@ -1,14 +1,9 @@
+import Pagination from "@/components/Pagination/Pagination";
 import { useMaintenanceHistory } from "../hooks/useMaintenanceHistory";
 import { MaintenanceFilter } from "./MaintenanceFilter/MaintenanceFilter";
 import styles from "./MaintenanceHistory.module.scss";
-import MaintenancePagination from "./Pagination/Pagination";
 import MaintenanceHistorySkeleton from "./Skeleton/MaintenanceHistorySkeleton";
-
-const statusLabels: Record<string, string> = {
-  open: "Aberto",
-  in_progress: "Em progresso",
-  completed: "Concluído",
-};
+import { useMaintenanceFormatters } from "../hooks/useMaintenanceFormatters";
 
 const MaintenanceHistory = () => {
   const {
@@ -20,53 +15,24 @@ const MaintenanceHistory = () => {
     paginate,
   } = useMaintenanceHistory();
 
+  const { formatDate, getStatusLabel, getTypeLabel, exportCSV } =
+    useMaintenanceFormatters(maintenances);
+
   if (isLoading) return <MaintenanceHistorySkeleton />;
 
-  const formatDate = (dateStr?: string | null) => {
-    if (!dateStr) return "-";
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("pt-BR");
-  };
-
-  const getStatusLabel = (status: string) => statusLabels[status] || status;
-
-  // Função para exportar CSV com dados filtrados atualmente
-  const exportCSV = () => {
-    if (maintenances.length === 0) {
-      alert("Nenhuma manutenção para exportar.");
-      return;
-    }
-
-    const headers = ["ID", "Descrição", "Tipo", "Data Conclusão", "Status"];
-    const rows = maintenances.map((m) => [
-      m.id,
-      m.description,
-      m.type,
-      formatDate(m.completionDate),
-      getStatusLabel(m.status),
-    ]);
-
-    const csvContent =
-      "data:text/csv;charset=utf-8," +
-      [headers, ...rows]
-        .map((row) =>
-          row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")
-        )
-        .join("\n");
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.href = encodedUri;
-    link.download = "historico_manutencoes.csv";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   const renderMobileList = () => (
-    <div className={styles.mobileList}>
+    <div
+      className={styles.mobileList}
+      role="list"
+      aria-label="Lista de manutenções em formato mobile"
+    >
       {maintenances.map((maintenance) => (
-        <div key={maintenance.id} className={styles.mobileListItem}>
+        <div
+          key={maintenance.id}
+          className={styles.mobileListItem}
+          role="listitem"
+          aria-label={`Manutenção ${maintenance.id}`}
+        >
           <p>
             <strong>ID:</strong> {maintenance.id}
           </p>
@@ -74,7 +40,7 @@ const MaintenanceHistory = () => {
             <strong>Descrição:</strong> {maintenance.description}
           </p>
           <p>
-            <strong>Tipo:</strong> {maintenance.type}
+            <strong>Tipo:</strong> {getTypeLabel(maintenance.type)}
           </p>
           <p>
             <strong>Data Conclusão:</strong>{" "}
@@ -91,18 +57,22 @@ const MaintenanceHistory = () => {
   return (
     <>
       <MaintenanceFilter onExport={exportCSV} />
-
       <div className={styles.content_maintenances}>
-        {maintenances.length === 0 && <p>Nenhuma manutenção encontrada</p>}
+        {maintenances.length === 0 && (
+          <p role="status">Nenhuma manutenção encontrada</p>
+        )}
 
-        <table className={styles.desktopTable}>
+        <table
+          className={styles.desktopTable}
+          aria-label="Tabela de histórico de manutenções"
+        >
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Descrição</th>
-              <th>Tipo</th>
-              <th>Data Conclusão</th>
-              <th>Status</th>
+              <th scope="col">ID</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Data Conclusão</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -110,7 +80,7 @@ const MaintenanceHistory = () => {
               <tr key={maintenance.id}>
                 <td>{maintenance.id}</td>
                 <td>{maintenance.description}</td>
-                <td>{maintenance.type}</td>
+                <td>{getTypeLabel(maintenance.type)}</td>
                 <td>{formatDate(maintenance.completionDate)}</td>
                 <td>{getStatusLabel(maintenance.status)}</td>
               </tr>
@@ -120,10 +90,10 @@ const MaintenanceHistory = () => {
 
         {renderMobileList()}
 
-        <MaintenancePagination
+        <Pagination
           currentPage={currentPage}
-          maintenancesPerPage={maintenancesPerPage}
-          totalMaintenances={totalMaintenances}
+          itemsPerPage={maintenancesPerPage}
+          totalItems={totalMaintenances}
           paginate={paginate}
         />
       </div>

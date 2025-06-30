@@ -1,6 +1,6 @@
 import { Section } from "@/components/Section/Section";
-import { MaintenanceFilters } from "../components/MaintenanceFilters";
 import { MaintenanceList } from "../components/MaintenanceList";
+import { MaintenanceFilters } from "../components/MaintenanceFilter/MaintenanceFilters";
 
 export function Called() {
   return (

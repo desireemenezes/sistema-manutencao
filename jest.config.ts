@@ -6,13 +6,9 @@ const compilerOptions = tsconfig.compilerOptions;
 import { pathsToModuleNameMapper } from "ts-jest";
 
 const config: JestConfigWithTsJest = {
-  preset: "ts-jest",
   testEnvironment: "jest-environment-jsdom",
-  globals: {
-    "ts-jest": {
-      tsconfig: "./tsconfig.app.json", // aponta explicitamente para seu tsconfig
-      isolatedModules: true,
-    },
+  transform: {
+    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
   },
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths || {}, {

@@ -1,77 +1,127 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { LoginPage } from "@/features/auth/pages/LoginPage";
 import { Layout } from "@/components/Layout/Layout";
-import { Dashboard } from "@/features/dashboard/pages/Dashboard";
-import { Called } from "@/features/called/pages/Called";
-import { Users } from "@/features/users/pages/Users";
-import { Sectors } from "@/features/sectors/pages/Sectors";
-import { Equipment } from "@/features/equipment/pages/Equipment";
-import { History } from "@/features/history/pages/History";
-import { CalledForm } from "@/features/called/pages/CalledForm";
 import { useAuth } from "@/hooks/useAuth";
-import { CalledAssigned } from "@/features/called/pages/CalledAssigned";
-import { UserForm } from "@/features/users/pages/UserForm";
-import { EquipmentForm } from "@/features/equipment/pages/EquipmentForm";
+import { LoadingSpinner } from "@/components/LoadingSpinner/LoadingSpinner";
+
+// Lazy loaded pages corrigidos para exportações nomeadas
+const LoginPage = lazy(() =>
+  import("@/features/auth/pages/LoginPage").then((module) => ({
+    default: module.LoginPage,
+  }))
+);
+
+// Manager Pages
+const Dashboard = lazy(() =>
+  import("@/features/dashboard/pages/Dashboard").then((module) => ({
+    default: module.Dashboard,
+  }))
+);
+const Called = lazy(() =>
+  import("@/features/called/pages/Called").then((module) => ({
+    default: module.Called,
+  }))
+);
+const CalledForm = lazy(() =>
+  import("@/features/called/pages/CalledForm").then((module) => ({
+    default: module.CalledForm,
+  }))
+);
+const Users = lazy(() =>
+  import("@/features/users/pages/Users").then((module) => ({
+    default: module.Users,
+  }))
+);
+const UserForm = lazy(() =>
+  import("@/features/users/pages/UserForm").then((module) => ({
+    default: module.UserForm,
+  }))
+);
+const Sectors = lazy(() =>
+  import("@/features/sectors/pages/Sectors").then((module) => ({
+    default: module.Sectors,
+  }))
+);
+const Equipment = lazy(() =>
+  import("@/features/equipment/pages/Equipment").then((module) => ({
+    default: module.Equipment,
+  }))
+);
+const EquipmentForm = lazy(() =>
+  import("@/features/equipment/pages/EquipmentForm").then((module) => ({
+    default: module.EquipmentForm,
+  }))
+);
+const History = lazy(() =>
+  import("@/features/history/pages/History").then((module) => ({
+    default: module.History,
+  }))
+);
+
+// Technician Page
+const CalledAssigned = lazy(() =>
+  import("@/features/called/pages/CalledAssigned").then((module) => ({
+    default: module.CalledAssigned,
+  }))
+);
 
 export function AppRoutes() {
   const { isAuthenticated, user } = useAuth();
   const role = user?.role ?? "";
 
-  if (!isAuthenticated) {
-    return (
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    );
-  }
-
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        {role === "manager" && (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        {!isAuthenticated ? (
           <>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/chamados" element={<Called />} />
-            <Route path="/chamados/novo" element={<CalledForm />} />{" "}
-            {/* Nova rota */}
-            <Route path="/usuarios" element={<Users />} />
-            <Route path="/usuarios/novo" element={<UserForm />} />
-            <Route path="/setores" element={<Sectors />} />
-            <Route path="/equipamentos" element={<Equipment />} />
-            <Route path="/equipamentos/novo" element={<EquipmentForm />} />
-            <Route path="/historico" element={<History />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
           </>
-        )}
+        ) : (
+          <Route element={<Layout />}>
+            {role === "manager" && (
+              <>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/chamados" element={<Called />} />
+                <Route path="/chamados/novo" element={<CalledForm />} />
+                <Route path="/usuarios" element={<Users />} />
+                <Route path="/usuarios/novo" element={<UserForm />} />
+                <Route path="/setores" element={<Sectors />} />
+                <Route path="/equipamentos" element={<Equipment />} />
+                <Route path="/equipamentos/novo" element={<EquipmentForm />} />
+                <Route path="/historico" element={<History />} />
+              </>
+            )}
 
-        {role === "technician" && (
-          <Route path="/chamados-atribuidos" element={<CalledAssigned />} />
-        )}
+            {role === "technician" && (
+              <Route path="/chamados-atribuidos" element={<CalledAssigned />} />
+            )}
 
-        {role === "researcher" && (
-          <>
-            <Route path="/chamados" element={<Called />} />
-            <Route path="/chamados/novo" element={<CalledForm />} />
-          </>
-        )}
+            {role === "researcher" && (
+              <>
+                <Route path="/chamados" element={<Called />} />
+                <Route path="/chamados/novo" element={<CalledForm />} />
+              </>
+            )}
 
-        {/* Redirecionamento para rota inicial correta */}
-        <Route
-          path="*"
-          element={
-            <Navigate
-              to={
-                role === "manager"
-                  ? "/dashboard"
-                  : role === "technician"
-                  ? "/chamados-atribuidos"
-                  : "/chamados"
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to={
+                    role === "manager"
+                      ? "/dashboard"
+                      : role === "technician"
+                      ? "/chamados-atribuidos"
+                      : "/chamados"
+                  }
+                  replace
+                />
               }
-              replace
             />
-          }
-        />
-      </Route>
-    </Routes>
+          </Route>
+        )}
+      </Routes>
+    </Suspense>
   );
 }

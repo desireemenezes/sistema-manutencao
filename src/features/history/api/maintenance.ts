@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import type { Maintenance } from "../Maintenance";
+import type { Maintenance } from "../types/Maintenance";
 
 export const getMaintenanceRequests = async (): Promise<Maintenance[]> => {
   const response = await api.get("/maintenanceRequests");

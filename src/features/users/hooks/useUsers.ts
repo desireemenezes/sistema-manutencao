@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify"; // import do toast
-import { getUsers, createUser, updateUser, deleteUser } from "../api/users";
+import { getUsers, createUser } from "../api/users";
 import { useUserStore } from "../store/userStore";
 import type { User } from "@/types/Auth";
 

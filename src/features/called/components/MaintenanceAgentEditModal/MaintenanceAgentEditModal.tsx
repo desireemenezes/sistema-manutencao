@@ -42,10 +42,15 @@ export function MaintenanceAgentEditModal({
   };
 
   return (
-    <div className={styles.modalOverlay}>
+    <div
+      className={styles.modalOverlay}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
       <div className={styles.modalContent}>
-        <div className={styles.modalHeader}>
-          <h3>Editar Chamado #{maintenance.id}</h3>
+        <header className={styles.modalHeader}>
+          <h3 id="modal-title">Editar Chamado #{maintenance.id}</h3>
           <button
             className={styles.closeButton}
             onClick={onClose}
@@ -53,11 +58,12 @@ export function MaintenanceAgentEditModal({
           >
             &times;
           </button>
-        </div>
+        </header>
 
-        <div className={styles.modalBody}>
-          <label>Status:</label>
+        <section className={styles.modalBody}>
+          <label htmlFor="status-select">Status:</label>
           <select
+            id="status-select"
             value={status}
             onChange={(e) => setStatus(e.target.value as any)}
           >
@@ -68,18 +74,20 @@ export function MaintenanceAgentEditModal({
 
           {status === "completed" && (
             <>
-              <label>Data de execução:</label>
+              <label htmlFor="completion-date">Data de execução:</label>
               <input
+                id="completion-date"
                 type="date"
-                value={completionDate}
+                value={completionDate ?? ""}
                 onChange={(e) => setCompletionDate(e.target.value)}
               />
               {errors.completionDate && (
                 <span className={styles.error}>{errors.completionDate}</span>
               )}
 
-              <label>Descrição do serviço:</label>
+              <label htmlFor="completion-notes">Descrição do serviço:</label>
               <textarea
+                id="completion-notes"
                 value={completionNotes}
                 onChange={(e) => setCompletionNotes(e.target.value)}
               />
@@ -95,6 +103,7 @@ export function MaintenanceAgentEditModal({
                     placeholder="Nome da peça"
                     value={part.name}
                     onChange={(e) => updatePartName(i, e.target.value)}
+                    aria-label={`Nome da peça ${i + 1}`}
                   />
                   <input
                     type="number"
@@ -104,9 +113,15 @@ export function MaintenanceAgentEditModal({
                     onChange={(e) =>
                       updatePartQuantity(i, Number(e.target.value))
                     }
+                    aria-label={`Quantidade da peça ${i + 1}`}
                   />
                   {partsUsed.length > 1 && (
-                    <button type="button" onClick={() => removePart(i)}>
+                    <button
+                      className={styles.remove}
+                      type="button"
+                      onClick={() => removePart(i)}
+                      aria-label={`Remover peça ${i + 1}`}
+                    >
                       Remover
                     </button>
                   )}
@@ -125,16 +140,16 @@ export function MaintenanceAgentEditModal({
               </button>
             </>
           )}
-        </div>
+        </section>
 
-        <div className={styles.modalFooter}>
+        <footer className={styles.modalFooter}>
           <button className={styles.cancel} type="button" onClick={onClose}>
             Cancelar
           </button>
           <button className={styles.save} type="button" onClick={handleSave}>
             Salvar
           </button>
-        </div>
+        </footer>
       </div>
     </div>
   );

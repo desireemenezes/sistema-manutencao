@@ -1,4 +1,10 @@
-import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import styles from "./EditEquipmentModal.module.scss";
 
 export interface Equipment {
@@ -7,8 +13,13 @@ export interface Equipment {
   code: string;
   model?: string;
   sectorId: number;
-  nextPreventiveDate?: string; // YYYY-MM-DD
+  nextPreventiveDate?: string;
   notes?: string;
+}
+
+export interface Sector {
+  id: number;
+  name: string;
 }
 
 interface EditEquipmentModalProps {
@@ -16,11 +27,16 @@ interface EditEquipmentModalProps {
   onClose: () => void;
   equipment: Equipment | null;
   onSave: (updatedEquipment: Equipment) => void;
+  sectors: Sector[];
 }
 
-function EditEquipmentModal(props: EditEquipmentModalProps) {
-  const { isOpen, onClose, equipment, onSave } = props;
-
+function EditEquipmentModal({
+  isOpen,
+  onClose,
+  equipment,
+  onSave,
+  sectors,
+}: EditEquipmentModalProps) {
   const [formData, setFormData] = useState<Equipment>({
     id: undefined,
     name: "",
@@ -33,56 +49,94 @@ function EditEquipmentModal(props: EditEquipmentModalProps) {
 
   useEffect(() => {
     if (equipment) setFormData(equipment);
+    else
+      setFormData({
+        id: undefined,
+        name: "",
+        code: "",
+        model: "",
+        sectorId: 0,
+        nextPreventiveDate: "",
+        notes: "",
+      });
   }, [equipment]);
+
+  // Fecha modal com ESC
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+    if (isOpen) {
+      window.addEventListener("keydown", onKeyDown);
+      return () => window.removeEventListener("keydown", onKeyDown);
+    }
+  }, [isOpen, onClose]);
+
+  const handleChange = useCallback(
+    (
+      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: name === "sectorId" ? Number(value) : value,
+      }));
+    },
+    []
+  );
+
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+
+      if (
+        !formData.name.trim() ||
+        !formData.code.trim() ||
+        !formData.sectorId
+      ) {
+        alert(
+          "Por favor, preencha os campos obrigatórios: Nome, Código e Setor."
+        );
+        return;
+      }
+
+      onSave({ ...formData, id: formData.id });
+    },
+    [formData, onSave]
+  );
 
   if (!isOpen) return null;
 
-  function handleChange(
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    const { name, value } = e.target;
-
-    // For sectorId, convert to number
-    if (name === "sectorId") {
-      setFormData({ ...formData, [name]: Number(value) });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  }
-
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-
-    // Validações simples (exemplo)
-    if (!formData.name.trim() || !formData.code.trim() || !formData.sectorId) {
-      alert(
-        "Por favor, preencha os campos obrigatórios: Nome, Código e Setor."
-      );
-      return;
-    }
-
-    onSave({ ...formData, id: formData.id });
-  }
-
   return (
-    <div className={styles.modalOverlay}>
+    <div
+      className={styles.modalOverlay}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="edit-equipment-title"
+      tabIndex={-1} // para receber foco e facilitar navegação teclado
+    >
       <div className={styles.modalContent}>
-        <h2>Editar Equipamento</h2>
+        <h3 id="edit-equipment-title">Editar Equipamento</h3>
         <form onSubmit={handleSubmit}>
-          <label>
+          <label htmlFor="name">
             Nome:
             <input
+              id="name"
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
+              autoFocus
             />
           </label>
 
-          <label>
+          <label htmlFor="code">
             Código:
             <input
+              id="code"
               type="text"
               name="code"
               value={formData.code}
@@ -91,9 +145,10 @@ function EditEquipmentModal(props: EditEquipmentModalProps) {
             />
           </label>
 
-          <label>
+          <label htmlFor="model">
             Modelo:
             <input
+              id="model"
               type="text"
               name="model"
               value={formData.model || ""}
@@ -101,21 +156,27 @@ function EditEquipmentModal(props: EditEquipmentModalProps) {
             />
           </label>
 
-          <label>
-            Setor (ID):
-            <input
-              type="number"
+          <label htmlFor="sectorId">
+            Setor:
+            <select
+              id="sectorId"
               name="sectorId"
               value={formData.sectorId}
               onChange={handleChange}
               required
-              min={1}
-            />
+            >
+              {sectors.map((sector) => (
+                <option key={sector.id} value={sector.id}>
+                  {sector.name}
+                </option>
+              ))}
+            </select>
           </label>
 
-          <label>
+          <label htmlFor="nextPreventiveDate">
             Próxima Preventiva:
             <input
+              id="nextPreventiveDate"
               type="date"
               name="nextPreventiveDate"
               value={formData.nextPreventiveDate || ""}
@@ -123,9 +184,10 @@ function EditEquipmentModal(props: EditEquipmentModalProps) {
             />
           </label>
 
-          <label>
+          <label htmlFor="notes">
             Observações:
             <textarea
+              id="notes"
               name="notes"
               value={formData.notes || ""}
               onChange={handleChange}
@@ -137,11 +199,8 @@ function EditEquipmentModal(props: EditEquipmentModalProps) {
             <button
               type="button"
               className={styles.cancel}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onClose();
-              }}
+              onClick={onClose}
+              aria-label="Cancelar edição"
             >
               Cancelar
             </button>
