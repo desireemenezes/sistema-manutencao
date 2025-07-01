@@ -4,15 +4,14 @@ import type { Equipment } from "../types/Equipment";
 
 interface EquipmentStoreState {
   equipments: Equipment[];
+  filter: string;
+  currentPage: number;
+  equipmentsPerPage: number;
   setEquipments: (equipments: Equipment[]) => void;
 
-  filter: string;
   setFilter: (filter: string) => void;
 
-  currentPage: number;
   setCurrentPage: (page: number) => void;
-
-  equipmentsPerPage: number;
 
   addEquipmentToStore: (equipment: Equipment) => void;
   removeEquipmentFromStore: (id: number) => void;

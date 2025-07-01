@@ -5,13 +5,14 @@ import { useCreateMaintenanceRequest } from "@/features/called/hooks/useCreateMa
 import { useTechnicians } from "@/api/useTechnicians";
 import useEquipments from "@/features/equipment/store/useEquipments";
 import styles from "./MaintenanceForm.module.scss";
-import { useSectorsHook } from "@/features/sectors/hooks/useSectorsHook";
+import useSectors from "@/features/sectors/hooks/useSectors";
 
 export const MaintenanceForm = () => {
   const { formData, handleChange, resetForm } = useCreateMaintenanceForm();
   const navigate = useNavigate();
   const { data: technicians = [] } = useTechnicians();
-  const { data: sectors = [] } = useSectorsHook();
+  const { sectors } = useSectors(); // Pegando setores diretamente do Zustand
+
   const { equipments = [] } = useEquipments();
 
   const { mutate: createMaintenance } = useCreateMaintenanceRequest({

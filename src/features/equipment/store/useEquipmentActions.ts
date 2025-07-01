@@ -13,9 +13,11 @@ export const useEquipmentActions = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const queryClient = useQueryClient();
+
   const updateEquipmentInStore = useEquipmentStore(
     (state) => state.updateEquipmentInStore
   );
+
   const removeEquipmentFromStore = useEquipmentStore(
     (state) => state.removeEquipmentFromStore
   );

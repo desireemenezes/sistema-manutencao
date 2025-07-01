@@ -1,4 +1,3 @@
-// src/lib/api/equipments.ts
 import { api } from "@/lib/api";
 import type { Equipment } from "../types/Equipment";
 

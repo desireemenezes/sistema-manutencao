@@ -13,7 +13,7 @@ import useEquipments from "@/features/equipment/store/useEquipments";
 // Import do hook React Query para carregar dados da API uma vez
 import { useMaintenanceList } from "@/api/maintenanceApi";
 import { useUpdateMaintenance } from "@/api/maintenanceApi";
-import { useSectorsHook } from "@/features/sectors/hooks/useSectorsHook";
+import useSectors from "@/features/sectors/hooks/useSectors";
 
 export const MaintenanceList = () => {
   const user = useAuthStore((state) => state.user);
@@ -21,7 +21,7 @@ export const MaintenanceList = () => {
 
   const { data: technicians = [] } = useTechnicians();
   const { equipments = [] } = useEquipments();
-  const { data: sectors = [] } = useSectorsHook();
+  const { sectors = [] } = useSectors();
 
   // Pegando filtros da store Zustand
   const {

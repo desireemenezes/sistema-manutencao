@@ -1,13 +1,16 @@
+// src/hooks/useSectorActions.ts
+
 import { useState } from "react";
 import { toast } from "react-toastify";
 import type { Sector } from "../types/Sector";
-import { useSectorStore } from "./useSectorStore"; // Zustand para manipulação local
+import { useSectorStore } from "../store/useSectorStore";
 
 export const useSectorActions = () => {
   const [selectedSector, setSelectedSector] = useState<Sector | null>(null);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
+  // Pegando as funções do Zustand
   const { addSector, updateSectorLocal, deleteSectorLocal } = useSectorStore();
 
   // Função para criar setor localmente

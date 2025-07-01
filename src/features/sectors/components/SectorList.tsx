@@ -1,7 +1,6 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 import styles from "./SectorList.module.scss";
-import useSectors from "../store/useSectors";
-import { useSectorActions } from "../store/useSectorActions";
+
 import { EditSectorModal } from "./EditModal/EditSectorModal";
 import DeleteSectorModal from "./DeleteModal/DeleteSectorModal";
 import CreateSectorForm from "./CreateForm/CreateSectorForm";
@@ -10,6 +9,8 @@ import { useSectorStore } from "../store/useSectorStore";
 import { GenericFilterBar } from "@/components/FilterBar/GenericFilterBar";
 import Pagination from "@/components/Pagination/Pagination";
 import type { Sector } from "../types/Sector";
+import useSectors from "../hooks/useSectors";
+import { useSectorActions } from "../hooks/useSectorActions";
 
 const SectorList = () => {
   const {
@@ -57,6 +58,7 @@ const SectorList = () => {
               className={styles.editBtn}
               onClick={() => openEdit(sector)}
               aria-label={`Editar setor ${sector.name}`}
+              role="button"
             >
               <FaEdit aria-hidden="true" />
             </button>
@@ -64,6 +66,7 @@ const SectorList = () => {
               className={styles.deleteBtn}
               onClick={() => openDelete(sector)}
               aria-label={`Excluir setor ${sector.name}`}
+              role="button"
             >
               <FaTrash aria-hidden="true" />
             </button>
@@ -109,6 +112,7 @@ const SectorList = () => {
                         className={styles.editBtn}
                         onClick={() => openEdit(sector)}
                         aria-label={`Editar setor ${sector.name}`}
+                        role="button"
                       >
                         <FaEdit aria-hidden="true" />
                       </button>
@@ -116,6 +120,7 @@ const SectorList = () => {
                         className={styles.deleteBtn}
                         onClick={() => openDelete(sector)}
                         aria-label={`Excluir setor ${sector.name}`}
+                        role="button"
                       >
                         <FaTrash aria-hidden="true" />
                       </button>
@@ -132,6 +137,7 @@ const SectorList = () => {
               itemsPerPage={sectorsPerPage}
               totalItems={totalSectors}
               paginate={paginate}
+              aria-label="Paginação de setores"
             />
           </>
         )}
@@ -140,6 +146,7 @@ const SectorList = () => {
             sector={selectedSector}
             onClose={closeEdit}
             onSave={confirmEdit}
+            aria-label={`Editar setor ${selectedSector.name}`}
           />
         )}
         {isDeleteOpen && selectedSector && (
@@ -149,6 +156,7 @@ const SectorList = () => {
             message={`Tem certeza que deseja excluir o setor "${selectedSector.name}"?`}
             onConfirm={confirmDelete}
             onCancel={closeDelete}
+            aria-label="Modal de confirmação para excluir setor"
           />
         )}
       </div>

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { GenericFilterBar } from "@/components/FilterBar/GenericFilterBar";
 import Pagination from "@/components/Pagination/Pagination";
 import type { Equipment } from "../types/Equipment";
-import { useSectorsHook } from "@/features/sectors/hooks/useSectorsHook";
+import useSectors from "@/features/sectors/hooks/useSectors";
 
 const Equipments = () => {
   const {
@@ -35,7 +35,7 @@ const Equipments = () => {
     confirmDelete,
   } = useEquipmentActions();
 
-  const { data: sectors = [] } = useSectorsHook();
+  const { sectors = [] } = useSectors();
 
   const { filter, setFilter } = useEquipmentStore();
   const navigate = useNavigate();
