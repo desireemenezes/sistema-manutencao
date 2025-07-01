@@ -1,14 +1,14 @@
 import styles from "./CreateEquipment.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useCreateEquipmentForm } from "../../hooks/useCreateEquipmentForm";
-import { useSectorsHook } from "@/features/sectors/hooks/useSectorsHook";
+import useSectors from "@/features/sectors/hooks/useSectors";
 
 const CreateEquipment = () => {
   const navigate = useNavigate();
   const { formData, errors, handleChange, handleSubmit } =
     useCreateEquipmentForm();
 
-  const { data: sectors = [], isLoading } = useSectorsHook();
+  const { sectors } = useSectors();
 
   const renderFieldError = (field: keyof typeof errors) =>
     errors[field] ? <div className={styles.error}>{errors[field]}</div> : null;
@@ -63,7 +63,6 @@ const CreateEquipment = () => {
             value={formData.sectorId || ""}
             onChange={handleChange("sectorId")}
             className={errors.sectorId ? styles.invalid : ""}
-            disabled={isLoading}
           >
             <option value="">Selecione um setor</option>
             {sectors.map((sector) => (
