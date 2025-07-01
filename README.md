@@ -84,6 +84,9 @@ src/
 - Após aprovação, a versão é publicada automaticamente via **deploy no Netlify**.  
 - A branch principal (`main`) sempre reflete a versão estável e publicada do sistema.
 
+![image](https://github.com/user-attachments/assets/d2ef6cad-25c4-4353-b5d6-b5032453073b)
+
+
 
 ## 🧠 Decisões Técnicas
 
