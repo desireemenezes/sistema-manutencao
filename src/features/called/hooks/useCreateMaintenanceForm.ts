@@ -3,6 +3,7 @@ import type {
   MaintenanceType,
 } from "@/types/Maintenance";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth"; // Importando hook para pegar os dados de autenticação
 
 type FormData = Omit<
   CreateMaintenanceRequest,
@@ -16,6 +17,7 @@ type FormData = Omit<
 };
 
 export const useCreateMaintenanceForm = () => {
+  const { user } = useAuth(); // Pegando o usuário logado
   const [formData, setFormData] = useState<FormData>({
     type: "",
     priority: "",
@@ -24,7 +26,7 @@ export const useCreateMaintenanceForm = () => {
     sectorId: "",
     equipmentId: "",
     assignedTo: null,
-    requesterId: 0, // ou coloque user.id, se disponível no contexto
+    requesterId: user?.id || 0, // Preenchendo com o ID do usuário logado
   });
 
   const handleChange = (
@@ -61,7 +63,7 @@ export const useCreateMaintenanceForm = () => {
       sectorId: "",
       equipmentId: "",
       assignedTo: null,
-      requesterId: 0, // sempre presente
+      requesterId: user?.id || 0, // Preenchendo com o ID do usuário logado
     });
   };
 

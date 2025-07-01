@@ -38,7 +38,7 @@ export const useMaintenanceHistory = () => {
   };
 
   return {
-    maintenances: paginatedMaintenances, // Certifique-se que isso é um array de Maintenance
+    maintenances: paginatedMaintenances,
     totalMaintenances: filteredMaintenances.length,
     isLoading,
     error,

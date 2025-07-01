@@ -41,6 +41,7 @@ const CreateSectorForm = ({ onCreate }: CreateSectorFormProps) => {
         onChange={(e) => setName(e.target.value)}
         required
         aria-invalid={!!error}
+        aria-describedby={error ? "name-error" : undefined}
       />
 
       <label htmlFor="sector-category" className="sr-only">
@@ -63,7 +64,7 @@ const CreateSectorForm = ({ onCreate }: CreateSectorFormProps) => {
       </button>
 
       {error && (
-        <p className={styles.error} role="alert">
+        <p id="name-error" className={styles.error} role="alert">
           {error}
         </p>
       )}

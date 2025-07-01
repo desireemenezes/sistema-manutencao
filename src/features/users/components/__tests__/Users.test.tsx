@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import Users from "../UserList";
 
 // Mock dos hooks utilizados no componente
-jest.mock("../../hooks/useUsers", () => ({
+jest.mock("../../store/useUsers", () => ({
   __esModule: true,
   default: () => ({
     users: [],
@@ -15,7 +15,7 @@ jest.mock("../../hooks/useUsers", () => ({
   }),
 }));
 
-jest.mock("../../hooks/useUserActions", () => ({
+jest.mock("../../store/useUserActions", () => ({
   __esModule: true,
   useUserActions: () => ({
     selectedUser: null,

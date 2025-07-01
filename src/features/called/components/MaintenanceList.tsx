@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SkeletonItem } from "./Skeleton/SkeletonItem";
 import { useMaintenanceStore } from "../store/useMaintenanceStore";
 import { MaintenanceAgentEditModal } from "./MaintenanceAgentEditModal/MaintenanceAgentEditModal";
@@ -8,9 +8,12 @@ import { toast } from "react-toastify";
 
 import { useAuthStore } from "@/store/authStore";
 import { useTechnicians } from "@/api/useTechnicians";
-import { useMaintenanceList, useUpdateMaintenance } from "@/api/maintenanceApi";
-import { useSectors } from "@/features/sectors/hooks/useSectors";
 import useEquipments from "@/features/equipment/store/useEquipments";
+
+// Import do hook React Query para carregar dados da API uma vez
+import { useMaintenanceList } from "@/api/maintenanceApi";
+import { useUpdateMaintenance } from "@/api/maintenanceApi";
+import { useSectorsHook } from "@/features/sectors/hooks/useSectorsHook";
 
 export const MaintenanceList = () => {
   const user = useAuthStore((state) => state.user);
@@ -18,15 +21,20 @@ export const MaintenanceList = () => {
 
   const { data: technicians = [] } = useTechnicians();
   const { equipments = [] } = useEquipments();
-  const { data: sectors = [] } = useSectors();
+  const { data: sectors = [] } = useSectorsHook();
 
+  // Pegando filtros da store Zustand
   const {
     typeFilter,
     statusFilter,
     assignedToFilter: assignedToFilterFromStore,
+    maintenanceRequests,
+    setMaintenanceRequests,
   } = useMaintenanceStore();
 
-  const { data: maintenanceRequests, isLoading } = useMaintenanceList();
+  // React Query hook para carregar dados da API, usado APENAS para carregar na montagem
+  const { data: maintenanceApiData, isLoading } = useMaintenanceList();
+
   const updateMaintenance = useUpdateMaintenance();
 
   const [selectedRequest, setSelectedRequest] = useState<any | null>(null);
@@ -35,7 +43,15 @@ export const MaintenanceList = () => {
   const assignedToFilter =
     user?.role === "technician" ? user.id : assignedToFilterFromStore;
 
-  const filteredRequests = maintenanceRequests?.filter((item) => {
+  // Ao montar o componente, popula a store com dados da API (uma vez só)
+  useEffect(() => {
+    if (maintenanceApiData && maintenanceApiData.length > 0) {
+      setMaintenanceRequests(maintenanceApiData);
+    }
+  }, [maintenanceApiData, setMaintenanceRequests]);
+
+  // Aplica filtros na lista da store
+  const filteredRequests = maintenanceRequests.filter((item) => {
     return (
       (!typeFilter || item.type === typeFilter) &&
       (!statusFilter || item.status === statusFilter) &&
@@ -97,11 +113,11 @@ export const MaintenanceList = () => {
 
   return (
     <div className={styles.listContainer}>
-      {filteredRequests?.length === 0 ? (
+      {filteredRequests.length === 0 ? (
         <p>Nenhum chamado encontrado com os filtros atuais.</p>
       ) : (
         <ul>
-          {filteredRequests?.map((item: any) => (
+          {filteredRequests.map((item: any) => (
             <li
               key={item.id}
               className={`

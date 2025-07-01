@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { updateEquipment, deleteEquipment } from "../api/equipments";
 import { toast } from "react-toastify";
+import { useEquipmentStore } from "./useEquipmentStore";
 import type { Equipment } from "../types/Equipment";
 
 export const useEquipmentActions = () => {
@@ -12,9 +13,19 @@ export const useEquipmentActions = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const queryClient = useQueryClient();
+  const updateEquipmentInStore = useEquipmentStore(
+    (state) => state.updateEquipmentInStore
+  );
+  const removeEquipmentFromStore = useEquipmentStore(
+    (state) => state.removeEquipmentFromStore
+  );
 
+  // Mutation para atualizar equipamento
   const updateMutation = useMutation(updateEquipment, {
-    onSuccess: () => {
+    onSuccess: (updated) => {
+      // Atualiza localmente a store
+      updateEquipmentInStore(updated);
+      // Invalida cache da API
       queryClient.invalidateQueries(["equipments"]);
       toast.success("Equipamento atualizado com sucesso!");
     },
@@ -23,8 +34,12 @@ export const useEquipmentActions = () => {
     },
   });
 
+  // Mutation para deletar equipamento
   const deleteMutation = useMutation(deleteEquipment, {
-    onSuccess: () => {
+    onSuccess: (_, id) => {
+      // Remove localmente da store
+      removeEquipmentFromStore(id);
+      // Invalida cache da API
       queryClient.invalidateQueries(["equipments"]);
       toast.success("Equipamento excluído com sucesso!");
     },
@@ -59,8 +74,8 @@ export const useEquipmentActions = () => {
   };
 
   const confirmDelete = () => {
-    if (selectedEquipment) {
-      deleteMutation.mutate(selectedEquipment.id as number);
+    if (selectedEquipment && selectedEquipment.id) {
+      deleteMutation.mutate(selectedEquipment.id);
       closeDelete();
     }
   };
@@ -75,5 +90,7 @@ export const useEquipmentActions = () => {
     closeDelete,
     confirmEdit,
     confirmDelete,
+    isUpdating: updateMutation.isLoading,
+    isDeleting: deleteMutation.isLoading,
   };
 };

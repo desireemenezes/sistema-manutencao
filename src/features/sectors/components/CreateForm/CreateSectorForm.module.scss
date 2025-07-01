@@ -17,6 +17,11 @@
     min-width: 200px;
   }
 
+  input[aria-invalid="true"] {
+    border: 2px solid var(--error-color);
+    outline: none;
+  }
+
   button {
     padding: 0.5rem 1rem;
     background-color: var(--primary-color);

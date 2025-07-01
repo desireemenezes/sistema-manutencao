@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { User } from "@/types/Auth";
-import useUsers from "./useUsers";
+import useUsers from "../store/useUsers";
 
 interface Errors {
   fullName?: string;

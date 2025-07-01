@@ -6,7 +6,7 @@ import {
   deleteSector,
 } from "../api/sectors";
 
-export const useSectors = () => {
+export const useSectorsHook = () => {
   return useQuery(["sectors"], getSectors);
 };
 

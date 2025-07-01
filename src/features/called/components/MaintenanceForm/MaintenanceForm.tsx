@@ -1,21 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./MaintenanceForm.module.scss";
-import { useCreateMaintenanceForm } from "../../hooks/useCreateMaintenanceForm";
-import { useCreateMaintenanceRequest } from "../../hooks/useCreateMaintenanceRequest";
 import { toast } from "react-toastify";
+import { useCreateMaintenanceForm } from "@/features/called/hooks/useCreateMaintenanceForm";
+import { useCreateMaintenanceRequest } from "@/features/called/hooks/useCreateMaintenanceRequest";
 import { useTechnicians } from "@/api/useTechnicians";
-import { useSectors } from "@/features/sectors/hooks/useSectors";
 import useEquipments from "@/features/equipment/store/useEquipments";
+import styles from "./MaintenanceForm.module.scss";
+import { useSectorsHook } from "@/features/sectors/hooks/useSectorsHook";
 
 export const MaintenanceForm = () => {
   const { formData, handleChange, resetForm } = useCreateMaintenanceForm();
   const navigate = useNavigate();
-
   const { data: technicians = [] } = useTechnicians();
-  const { data: sectors = [] } = useSectors();
+  const { data: sectors = [] } = useSectorsHook();
   const { equipments = [] } = useEquipments();
 
-  const mutation = useCreateMaintenanceRequest({
+  const { mutate: createMaintenance } = useCreateMaintenanceRequest({
     onSuccessCallback: () => {
       resetForm();
       navigate("/chamados");
@@ -36,7 +35,7 @@ export const MaintenanceForm = () => {
       return;
     }
 
-    mutation.mutate(formData);
+    createMaintenance(formData);
   };
 
   return (
@@ -149,16 +148,11 @@ export const MaintenanceForm = () => {
           className={styles.cancel}
           type="button"
           onClick={() => navigate("/chamados")}
-          disabled={mutation.isLoading}
         >
           Voltar
         </button>
-        <button
-          type="submit"
-          disabled={mutation.isLoading}
-          className={styles.save}
-        >
-          {mutation.isLoading ? "Salvando..." : "Criar Chamado"}
+        <button type="submit" className={styles.save}>
+          Criar Chamado
         </button>
       </div>
     </form>

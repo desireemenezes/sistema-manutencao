@@ -15,9 +15,8 @@ export const useCreateMaintenanceRequest = ({
   onSuccessCallback,
 }: UseCreateMaintenanceRequestProps = {}) => {
   const queryClient = useQueryClient();
-  const addMaintenanceRequest = useMaintenanceStore(
-    (state) => state.addMaintenanceRequest
-  );
+  const { addMaintenanceRequest } = useMaintenanceStore.getState();
+  const { maintenanceRequests, setMaintenanceRequests } = useMaintenanceStore();
 
   return useMutation<MaintenanceRequest, unknown, CreateMaintenanceRequest>({
     mutationFn: async (formData) => {
@@ -30,11 +29,20 @@ export const useCreateMaintenanceRequest = ({
       });
       return response.data;
     },
-    onSuccess: (data) => {
+    onSuccess: (newRequest) => {
       toast.success("Chamado criado com sucesso!");
-      addMaintenanceRequest(data);
-      queryClient.invalidateQueries("maintenanceRequests");
-      if (onSuccessCallback) onSuccessCallback();
+
+      // ✅ Atualiza Zustand local (mesmo sem revalidar com o servidor)
+      addMaintenanceRequest(newRequest);
+
+      // ✅ Opcionalmente atualiza o cache do React Query
+      queryClient.setQueryData<MaintenanceRequest[]>(
+        "maintenanceRequests",
+        (oldData = []) => [...oldData, newRequest]
+      );
+
+      // ✅ Executa callback se existir
+      onSuccessCallback?.();
     },
     onError: () => {
       toast.error("Erro ao criar chamado.");

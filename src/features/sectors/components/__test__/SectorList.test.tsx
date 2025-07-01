@@ -22,6 +22,7 @@ const sectorActionsMock = {
   closeDelete: jest.fn(),
   confirmEdit: jest.fn(),
   confirmDelete: jest.fn(),
+  confirmCreate: jest.fn(), // Adicionado confirmCreate
 };
 
 describe("SectorList component", () => {
@@ -33,7 +34,7 @@ describe("SectorList component", () => {
     jest.clearAllMocks();
   });
 
-  it("renderiza a tabela de setores na tela quando há setores", () => {
+  it("should render the sector table when sectors are available", () => {
     useSectorsMock.mockImplementation(() => ({
       sectors: [{ id: 1, name: "Setor 1", category: "Categoria 1" }],
       totalSectors: 1,
@@ -45,6 +46,8 @@ describe("SectorList component", () => {
       sectorsPerPage: 10,
       paginate: jest.fn(),
       createSector: jest.fn(),
+      updateSector: jest.fn(), // Adicionado updateSector
+      deleteSector: jest.fn(), // Adicionado deleteSector
     }));
 
     render(
@@ -64,7 +67,7 @@ describe("SectorList component", () => {
     ).toBeInTheDocument();
   });
 
-  it("exibe mensagem de nenhum setor encontrado quando não há setores", () => {
+  it("should display a message when no sectors are found", () => {
     useSectorsMock.mockImplementation(() => ({
       sectors: [],
       totalSectors: 0,
@@ -76,6 +79,8 @@ describe("SectorList component", () => {
       sectorsPerPage: 10,
       paginate: jest.fn(),
       createSector: jest.fn(),
+      updateSector: jest.fn(), // Adicionado updateSector
+      deleteSector: jest.fn(), // Adicionado deleteSector
     }));
 
     render(

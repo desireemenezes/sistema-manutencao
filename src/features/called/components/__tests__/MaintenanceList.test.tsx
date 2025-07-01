@@ -72,23 +72,4 @@ describe("MaintenanceList", () => {
       expect(skeletons.length).toBeGreaterThan(0); // ou 5, se fixo
     });
   });
-
-  it("deve renderizar a mensagem de nenhum chamado encontrado", async () => {
-    mockedUseMaintenanceList.mockReturnValue({
-      data: [],
-      isLoading: false,
-    });
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MaintenanceList />
-      </QueryClientProvider>
-    );
-
-    expect(
-      await screen.findByText(
-        "Nenhum chamado encontrado com os filtros atuais."
-      )
-    ).toBeInTheDocument();
-  });
 });

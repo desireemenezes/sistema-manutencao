@@ -2,7 +2,6 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import styles from "./SectorList.module.scss";
 import useSectors from "../store/useSectors";
 import { useSectorActions } from "../store/useSectorActions";
-import type { Sector } from "../types/Sector";
 import { EditSectorModal } from "./EditModal/EditSectorModal";
 import DeleteSectorModal from "./DeleteModal/DeleteSectorModal";
 import CreateSectorForm from "./CreateForm/CreateSectorForm";
@@ -10,6 +9,7 @@ import SectorListSkeleton from "./Skeleton/Skeleton";
 import { useSectorStore } from "../store/useSectorStore";
 import { GenericFilterBar } from "@/components/FilterBar/GenericFilterBar";
 import Pagination from "@/components/Pagination/Pagination";
+import type { Sector } from "../types/Sector";
 
 const SectorList = () => {
   const {
@@ -19,7 +19,6 @@ const SectorList = () => {
     currentPage,
     sectorsPerPage,
     paginate,
-    createSector,
   } = useSectors();
 
   const {
@@ -32,6 +31,7 @@ const SectorList = () => {
     closeDelete,
     confirmEdit,
     confirmDelete,
+    confirmCreate, // Agora, confirmCreate é acessado aqui
   } = useSectorActions();
 
   const { filter, setFilter } = useSectorStore();
@@ -83,13 +83,11 @@ const SectorList = () => {
       />
 
       <div className={styles.content_sectors}>
-        <CreateSectorForm onCreate={createSector} />
-
+        <CreateSectorForm onCreate={confirmCreate} />
         {sectors.length === 0 ? (
           renderEmptyMessage
         ) : (
           <>
-            {/* Tabela Desktop */}
             <table
               className={styles.desktopTable}
               aria-label="Lista de setores"
@@ -137,7 +135,6 @@ const SectorList = () => {
             />
           </>
         )}
-
         {isEditOpen && selectedSector && (
           <EditSectorModal
             sector={selectedSector}
@@ -145,7 +142,6 @@ const SectorList = () => {
             onSave={confirmEdit}
           />
         )}
-
         {isDeleteOpen && selectedSector && (
           <DeleteSectorModal
             isOpen={isDeleteOpen}

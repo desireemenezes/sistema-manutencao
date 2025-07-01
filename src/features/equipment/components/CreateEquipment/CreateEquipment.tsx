@@ -1,14 +1,14 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./CreateEquipment.module.scss";
+import { useNavigate } from "react-router-dom";
 import { useCreateEquipmentForm } from "../../hooks/useCreateEquipmentForm";
-import { useSectors } from "@/features/sectors/hooks/useSectors";
+import { useSectorsHook } from "@/features/sectors/hooks/useSectorsHook";
 
 const CreateEquipment = () => {
   const navigate = useNavigate();
   const { formData, errors, handleChange, handleSubmit } =
     useCreateEquipmentForm();
 
-  const { data: sectors = [], isLoading } = useSectors();
+  const { data: sectors = [], isLoading } = useSectorsHook();
 
   const renderFieldError = (field: keyof typeof errors) =>
     errors[field] ? <div className={styles.error}>{errors[field]}</div> : null;
